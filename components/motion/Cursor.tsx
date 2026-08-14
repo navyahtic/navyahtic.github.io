@@ -73,7 +73,7 @@ export function Cursor() {
     <div
       ref={ring}
       aria-hidden="true"
-      className="pointer-events-none fixed top-0 left-0 z-[70] h-8 w-8 rounded-full border border-bone/45 opacity-0 mix-blend-difference transition-opacity duration-300"
+      className="pointer-events-none fixed top-0 left-0 z-[70] h-8 w-8 rounded-full border border-bone/35 opacity-0 transition-opacity duration-300"
       style={{ willChange: "transform" }}
     />
   );

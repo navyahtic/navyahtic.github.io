@@ -35,7 +35,7 @@ export function GalleryImage({
   return (
     <div
       className={`relative w-full overflow-hidden rounded-sm border border-line ${
-        fit === "contain" ? "bg-bone/95" : "bg-ink-raised"
+        fit === "contain" ? "bg-ink-raised" : "bg-ink-sunk"
       } ${className}`}
       style={{ aspectRatio: ratio }}
     >

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { profile } from "@/content/profile";
 import { featuredProjects } from "@/content/projects";
 import { experience } from "@/content/experience";
+import { education } from "@/content/education";
 import { certifications } from "@/content/certifications";
 import { publications } from "@/content/publications";
 import { portraits } from "@/lib/image-data";
@@ -17,13 +18,6 @@ import { Magnetic } from "@/components/motion/Magnetic";
 
 const current = experience.find((role) => role.current);
 
-/** The four numbers worth leading with. */
-const marquee = [
-  { value: "~7 ms", label: "intraoperative morph latency" },
-  { value: "0.24 mm", label: "RMSE against a 0.5 mm gate" },
-  { value: "89", label: "tests behind the surgical pipeline" },
-  { value: "0", label: "preoperative CT scans required" },
-];
 
 export default function Home() {
   return (
@@ -104,17 +98,45 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Numbers ──────────────────────────────────────────── */}
-      <section aria-label="Selected metrics" className="rule py-16">
-        <div className="shell grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-          {marquee.map((stat, i) => (
-            <Reveal key={stat.label} index={i}>
-              <p className="font-display text-h2 text-bone">{stat.value}</p>
-              <p className="mt-2 font-mono text-[0.7rem] leading-relaxed tracking-[0.1em] text-ash uppercase">
-                {stat.label}
-              </p>
-            </Reveal>
-          ))}
+      {/* ── Education ────────────────────────────────────────── */}
+      <section className="rule py-24" aria-labelledby="edu-heading">
+        <div className="shell">
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <Reveal>
+                <p className="eyebrow">Education</p>
+              </Reveal>
+              <SplitText
+                as="h2"
+                id="edu-heading"
+                text="Where I studied"
+                className="font-display text-h1 mt-4 text-bone"
+              />
+            </div>
+          </div>
+
+          <ol className="mt-14 divide-y divide-line border-y border-line">
+            {education.map((item, i) => (
+              <li key={item.qualification}>
+                <Reveal index={i}>
+                  <div className="grid gap-3 py-8 md:grid-cols-[11rem_1fr_auto] md:items-baseline md:gap-10">
+                    <p className="font-mono text-xs tracking-[0.08em] text-ash">{item.period}</p>
+                    <div>
+                      <h3 className="font-display text-h3 text-bone">{item.qualification}</h3>
+                      <p className="mt-2 text-sm text-ash">
+                        {item.institution}
+                        {item.affiliation ? ` — ${item.affiliation}` : ""}
+                        {item.location ? `, ${item.location}` : ""}
+                      </p>
+                    </div>
+                    {item.result && (
+                      <p className="font-mono text-sm whitespace-nowrap text-ember">{item.result}</p>
+                    )}
+                  </div>
+                </Reveal>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 

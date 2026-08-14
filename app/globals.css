@@ -8,20 +8,22 @@
    is probably wrong.
    ───────────────────────────────────────────────────────────── */
 @theme {
-  --color-ink: #0a0a0b;
-  --color-ink-raised: #111113;
-  --color-ink-sunk: #060607;
+  /* `ink` is the page ground, `bone` is the type. Keeping those two names
+     stable means the whole site re-themes from this block alone. */
+  --color-ink: #ffffff;
+  --color-ink-raised: #f7f7f5;
+  --color-ink-sunk: #efeeec;
 
-  --color-bone: #f2efe8;
-  --color-bone-2: #cdc9c0;
-  --color-ash: #8b8891;
-  --color-ash-dim: #5a5860;
+  --color-bone: #1a1a1a;
+  --color-bone-2: #3d3d3d;
+  --color-ash: #6e6e6e;
+  --color-ash-dim: #9a9a9a;
 
-  --color-ember: #ff5a26;
-  --color-ember-dim: #b23c19;
+  --color-ember: #dc4437;
+  --color-ember-dim: #a8291e;
 
-  --color-line: rgba(242, 239, 232, 0.1);
-  --color-line-strong: rgba(242, 239, 232, 0.22);
+  --color-line: rgba(0, 0, 0, 0.1);
+  --color-line-strong: rgba(0, 0, 0, 0.24);
 
   --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
@@ -63,7 +65,7 @@
 
 html {
   background: var(--color-ink);
-  color-scheme: dark;
+  color-scheme: light;
   -webkit-text-size-adjust: 100%;
 
   /* Fractal-noise grain, inlined so it costs no request. */
@@ -141,7 +143,8 @@ body {
   inset: -50%;
   z-index: 60;
   pointer-events: none;
-  opacity: 0.32;
+  /* Much lighter than on a dark ground — grain reads as dirt on white. */
+  opacity: 0.09;
   background-image: var(--grain-src);
   background-size: 180px 180px;
   will-change: transform;

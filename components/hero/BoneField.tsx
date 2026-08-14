@@ -86,15 +86,17 @@ void main() {
   if (d > 1.0) discard;
   float alpha = (1.0 - d) * 0.85;
 
-  vec3 bone   = vec3(0.949, 0.937, 0.910);
-  vec3 ember  = vec3(1.0, 0.353, 0.149);
+  // Dark points on a white page — the inverse of the usual point-cloud look.
+  vec3 graphite = vec3(0.10, 0.10, 0.10);
+  vec3 ember    = vec3(0.863, 0.267, 0.216);
 
   // A thin slice of points carries the accent; depth does the rest.
   float isAccent = step(0.93, fract(vSeed * 7.31));
-  vec3 col = mix(bone, ember, isAccent * uAccent);
+  vec3 col = mix(graphite, ember, isAccent * uAccent);
 
+  // Nearer points sit darker; far ones fade toward the page.
   float depthFade = smoothstep(-1.2, 1.0, vDepth);
-  outColor = vec4(col * (0.35 + depthFade * 0.65), alpha * (0.25 + depthFade * 0.75));
+  outColor = vec4(col, alpha * (0.06 + depthFade * 0.30));
 }`;
 
 function compile(gl: WebGL2RenderingContext, type: number, src: string) {
@@ -272,8 +274,8 @@ export function BoneField() {
   if (canRun === false) {
     return (
       <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 h-[34rem] w-[34rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(242,239,232,0.09),transparent_62%)]" />
-        <div className="absolute top-1/2 left-1/2 h-[16rem] w-[16rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,90,38,0.1),transparent_68%)]" />
+        <div className="absolute top-1/2 left-1/2 h-[34rem] w-[34rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(0,0,0,0.05),transparent_62%)]" />
+        <div className="absolute top-1/2 left-1/2 h-[16rem] w-[16rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(220,68,55,0.08),transparent_68%)]" />
       </div>
     );
   }
