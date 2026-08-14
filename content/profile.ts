@@ -31,12 +31,13 @@ export const profile = {
   /** Drop the PDF at public/Navyashree-N-Resume.pdf to make the download button live. */
   resumeFile: "/Navyashree-N-Resume.pdf",
 
-  /** Set this to the real deployment URL once live — it drives canonical tags, OG, and sitemap. */
-  siteUrl: "https://navyashree.vercel.app",
+  /** Drives canonical tags, OG URLs, and the sitemap. Change it if you move to a custom domain. */
+  siteUrl: "https://navyansgr.github.io",
 } as const;
 
 export const nav = [
   { label: "Work", href: "/work" },
+  { label: "Credentials", href: "/credentials" },
   { label: "About", href: "/about" },
   { label: "Résumé", href: "/resume" },
 ] as const;

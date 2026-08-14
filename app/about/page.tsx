@@ -6,11 +6,12 @@ import { profile } from "@/content/profile";
 import { experience, involvement } from "@/content/experience";
 import { education, skills } from "@/content/education";
 import { awards } from "@/content/awards";
+import { publications } from "@/content/publications";
 import { portraits } from "@/lib/image-data";
 
 import { SplitText } from "@/components/hero/SplitText";
 import { Reveal } from "@/components/motion/Reveal";
-import { ImageSlot } from "@/components/ImageSlot";
+import { GalleryImage } from "@/components/GalleryImage";
 
 export const metadata: Metadata = {
   title: "About",
@@ -163,7 +164,48 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── Awards, with image slots ─────────────────────────── */}
+      {/* ── Publications ─────────────────────────────────────── */}
+      <section className="rule py-24" aria-labelledby="pubs-heading">
+        <div className="shell">
+          <Reveal>
+            <p className="eyebrow">Research</p>
+          </Reveal>
+          <SplitText
+            as="h2"
+            id="pubs-heading"
+            text="Published work"
+            className="font-display text-h2 mt-4 text-bone"
+          />
+
+          <ol className="mt-14">
+            {publications.map((pub, i) => (
+              <li key={pub.title} className="border-t border-line py-8 last:border-b">
+                <Reveal index={Math.min(i, 3)}>
+                  <p className="font-mono text-[0.68rem] tracking-[0.14em] text-ember uppercase">
+                    {pub.publisher} — {pub.date}
+                  </p>
+                  <h3 className="font-display text-h3 mt-3 max-w-3xl text-balance text-bone">
+                    {pub.title}
+                  </h3>
+                  <p className="mt-2 max-w-3xl text-sm text-ash">{pub.venue}</p>
+                  {pub.doi && (
+                    <a
+                      href={pub.doi}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="link-draw mt-3 inline-block font-mono text-[0.7rem] tracking-[0.1em] text-bone uppercase"
+                    >
+                      DOI ↗
+                    </a>
+                  )}
+                </Reveal>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* ── Awards ───────────────────────────────────────────── */}
       <section className="rule py-24" aria-labelledby="awards-heading">
         <div className="shell">
           <Reveal>
@@ -177,29 +219,40 @@ export default function AboutPage() {
           />
 
           <div className="mt-16 grid gap-x-10 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
-            {awards.map((award, i) => (
+            {awards.slice(0, 3).map((award, i) => (
               <Reveal key={award.title} index={i % 3}>
                 <article>
-                  {award.image && (
-                    <ImageSlot
-                      slot={{ ...award.image, caption: undefined }}
-                      ratio="4/3"
-                      sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 30vw"
-                      className="mb-5"
-                    />
-                  )}
+                  <GalleryImage
+                    id={award.image}
+                    alt={award.title}
+                    ratio="4/3"
+                    fit={award.image === "award-icrcct-stage" ? "cover" : "contain"}
+                    sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 30vw"
+                    className="mb-5"
+                  />
                   <p className="font-mono text-[0.65rem] tracking-[0.14em] text-ember uppercase">
                     {award.year}
                   </p>
                   <h3 className="font-display text-h3 mt-2 text-bone">{award.title}</h3>
                   <p className="mt-2 text-sm text-ash">{award.detail}</p>
                   {award.issuer && (
-                    <p className="mt-1 font-mono text-[0.7rem] text-ash-dim">{award.issuer}</p>
+                    <p className="mt-2 font-mono text-[0.68rem] leading-relaxed text-ash-dim">
+                      {award.issuer}
+                    </p>
                   )}
                 </article>
               </Reveal>
             ))}
           </div>
+
+          <Reveal delay={200}>
+            <Link
+              href="/credentials"
+              className="link-draw mt-12 inline-block font-mono text-xs tracking-[0.16em] text-bone uppercase"
+            >
+              Every award, paper and certification →
+            </Link>
+          </Reveal>
         </div>
       </section>
 

@@ -1,9 +1,11 @@
 import type { Certification } from "./types";
 
 /**
- * `credentialUrl` is the direct link to your badge — paste it in and the card
- * links straight to the credential. Until then the card links to the issuer's
- * official verification portal, which is honest and still clickable.
+ * Ordered by weight, not by date — the ones a hiring manager scans for sit at
+ * the top. `credentialUrl` is a direct verification link where one exists;
+ * `credentialId` is printed on the certificate itself.
+ *
+ * `image` is a gallery id from scripts/gallery-manifest.mjs.
  */
 export const certifications: Certification[] = [
   {
@@ -14,25 +16,114 @@ export const certifications: Certification[] = [
     issuerUrl: "https://catalog-education.oracle.com/ords/certview/",
   },
   {
+    name: "Automation Developer Associate",
+    issuer: "UiPath Certified Professional",
+    issued: "Nov 2025",
+    credentialId: "004081",
+    credentialUrl: "",
+    issuerUrl: "https://www.uipath.com/learning/certification",
+    image: "cert-uipath",
+  },
+  {
     name: "AWS Academy Graduate — Cloud Foundations",
-    issuer: "AWS Academy",
+    issuer: "Amazon Web Services",
     issued: "Jun 2024",
     credentialUrl: "https://www.credly.com/go/5PvYp5nO",
     issuerUrl: "https://www.credly.com/organizations/amazon-web-services/badges",
+    image: "cert-aws-foundations",
   },
   {
-    name: "AWS Academy — Cloud Security Foundations",
-    issuer: "AWS Academy",
-    issued: "2025",
-    credentialUrl: "",
+    name: "AWS Academy Graduate — Cloud Security Foundations",
+    issuer: "Amazon Web Services",
+    issued: "Sep 2024",
+    credentialUrl: "https://www.credly.com/go/HA8jEf0R",
     issuerUrl: "https://www.credly.com/organizations/amazon-web-services/badges",
+    image: "cert-aws-security",
   },
   {
-    name: "Automation Developer Associate",
-    issuer: "UiPath",
-    issued: "2025",
+    name: "Aspire Leaders Program 2025",
+    issuer: "Aspire Institute",
+    issued: "Oct 2025",
+    detail: "40 hours of coursework. Founded by faculty at Harvard Business School.",
     credentialUrl: "",
-    issuerUrl: "https://www.uipath.com/learning/certification",
+    issuerUrl: "https://www.aspireleaders.org/",
+    image: "cert-aspire",
+  },
+  {
+    name: "Cloud Security Fundamentals",
+    issuer: "Palo Alto Networks",
+    issued: "Mar 2025",
+    credentialUrl: "",
+    issuerUrl: "https://www.paloaltonetworks.com/cyberpedia/education",
+    image: "cert-palo-cloud",
+  },
+  {
+    name: "Network Security Fundamentals",
+    issuer: "Palo Alto Networks",
+    issued: "Mar 2025",
+    credentialUrl: "",
+    issuerUrl: "https://www.paloaltonetworks.com/cyberpedia/education",
+    image: "cert-palo-network",
+  },
+  {
+    name: "Security Operations Fundamentals",
+    issuer: "Palo Alto Networks",
+    issued: "Mar 2025",
+    credentialUrl: "",
+    issuerUrl: "https://www.paloaltonetworks.com/cyberpedia/education",
+  },
+  {
+    name: "Robotic Process Automation — Youth Empowerment Program",
+    issuer: "ICT Academy, sponsored by Rockwell Automation",
+    issued: "Aug 2025",
+    credentialId: "G-2025-G4592-0015",
+    credentialUrl: "",
+    issuerUrl: "https://www.ictacademy.in/",
+    image: "cert-ict-rpa",
+  },
+  {
+    name: "Android Developer Virtual Internship",
+    issuer: "EduSkills · AICTE · Google for Developers",
+    issued: "Jun 2024",
+    detail: "Ten-week programme under the AICTE NEAT initiative.",
+    credentialId: "585b27252a6af510cca3a5cfc0aed923",
+    credentialUrl: "",
+    issuerUrl: "https://eduskillsfoundation.org/",
+    image: "cert-eduskills-android",
+  },
+  {
+    name: "Career Edge — Young Professional",
+    issuer: "TCS iON",
+    issued: "Sep 2025",
+    credentialId: "240640-28157090-1016",
+    credentialUrl: "",
+    issuerUrl: "https://learning.tcsionhub.in/",
+    image: "cert-tcs-ion",
+  },
+  {
+    name: "Web Development",
+    issuer: "Internshala Trainings · NSDC",
+    issued: "May 2024",
+    credentialId: "37n8kbd9mbwfInoq",
+    credentialUrl: "",
+    issuerUrl: "https://trainings.internshala.com/",
+    image: "cert-internshala-web",
+  },
+  {
+    name: "International Certified Career Coach — Foundation",
+    issuer: "Mindler · Career Development Alliance",
+    issued: "Jan 2024",
+    credentialUrl: "",
+    issuerUrl: "https://www.mindler.com/",
+    image: "cert-mindler",
+  },
+  {
+    name: "Create a Google Ads Search Campaign",
+    issuer: "Coursera Project Network",
+    issued: "Jan 2024",
+    credentialUrl: "https://coursera.org/verify/CDR2743PTZPR",
+    issuerUrl: "https://www.coursera.org/",
+    image: "cert-coursera-ads",
   },
   {
     name: "Networking Basics",

@@ -5,6 +5,7 @@ import { profile } from "@/content/profile";
 import { featuredProjects } from "@/content/projects";
 import { experience } from "@/content/experience";
 import { certifications } from "@/content/certifications";
+import { publications } from "@/content/publications";
 import { portraits } from "@/lib/image-data";
 
 import { BoneField } from "@/components/hero/BoneField";
@@ -198,6 +199,51 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Published ────────────────────────────────────────── */}
+      <section className="rule py-28" aria-labelledby="pub-heading">
+        <div className="shell">
+          <Reveal>
+            <p className="eyebrow">Research</p>
+          </Reveal>
+          <SplitText
+            as="h2"
+            id="pub-heading"
+            text="Published"
+            className="font-display text-h1 mt-4 text-bone"
+          />
+
+          <ol className="mt-14 divide-y divide-line border-y border-line">
+            {publications.map((pub, i) => (
+              <li key={pub.title}>
+                <Reveal index={i}>
+                  <div className="grid gap-4 py-8 md:grid-cols-[7rem_1fr_auto] md:items-baseline md:gap-10">
+                    <p className="font-mono text-[0.7rem] tracking-[0.1em] text-ember uppercase">
+                      {pub.publisher}
+                    </p>
+                    <div>
+                      <h3 className="font-display text-h3 max-w-3xl text-balance text-bone">
+                        {pub.title}
+                      </h3>
+                      <p className="mt-2 max-w-3xl text-sm text-ash">{pub.venue}</p>
+                    </div>
+                    <p className="font-mono text-xs whitespace-nowrap text-ash-dim">{pub.date}</p>
+                  </div>
+                </Reveal>
+              </li>
+            ))}
+          </ol>
+
+          <Reveal delay={200}>
+            <Link
+              href="/credentials"
+              className="link-draw mt-10 inline-block font-mono text-xs tracking-[0.16em] text-bone uppercase"
+            >
+              Papers, certifications and the rest →
+            </Link>
+          </Reveal>
+        </div>
+      </section>
+
       {/* ── Credentials ──────────────────────────────────────── */}
       <section className="rule py-28" aria-labelledby="cred-heading">
         <div className="shell">
@@ -207,12 +253,12 @@ export default function Home() {
           <SplitText
             as="h2"
             id="cred-heading"
-            text="Certified, and audited"
+            text="Certified, and verifiable"
             className="font-display text-h1 mt-4 text-bone"
           />
 
           <ul className="mt-16 grid gap-px overflow-hidden rounded-sm bg-line sm:grid-cols-2 lg:grid-cols-3">
-            {certifications.map((cert, i) => (
+            {certifications.slice(0, 6).map((cert, i) => (
               <li key={cert.name} className="bg-ink">
                 <Reveal index={i}>
                   <a
@@ -241,6 +287,15 @@ export default function Home() {
               </li>
             ))}
           </ul>
+
+          <Reveal delay={200}>
+            <Link
+              href="/credentials"
+              className="link-draw mt-10 inline-block font-mono text-xs tracking-[0.16em] text-bone uppercase"
+            >
+              All {certifications.length} certifications →
+            </Link>
+          </Reveal>
         </div>
       </section>
     </>

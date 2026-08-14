@@ -1,25 +1,26 @@
-import type { ImageSlot } from "./types";
-
 export type Publication = {
   title: string;
   venue: string;
   publisher: string;
-  year: string;
+  date: string;
   authors: string[];
-  /** Navyashree's position in the author list, for the byline emphasis. */
+  /** Rendered in accent so her name is findable in a long author list. */
   authorHighlight: string;
   abstract: string;
   status: string;
+  doi?: string;
   url?: string;
-  image?: ImageSlot;
+  /** Gallery id from scripts/gallery-manifest.mjs. */
+  image?: string;
 };
 
 export const publications: Publication[] = [
   {
     title: "Athercare: Unified AI System for Health Intelligence in Real Time",
-    venue: "6th International Conference, 2025",
+    venue:
+      "6th International Conference on Smart Electronics and Communication (ICOSEC 2025), Kongunadu College of Engineering & Technology, Trichy",
     publisher: "IEEE",
-    year: "2025",
+    date: "September 2025",
     authors: [
       "Pandurang",
       "V Mareeswari",
@@ -30,13 +31,34 @@ export const publications: Publication[] = [
     ],
     authorHighlight: "Navyashree N",
     abstract:
-      "Quality healthcare access is a worldwide issue — disjointed systems, slow diagnostics, and complex medical documentation all stand between people and care. Athercare proposes a unified digital health ecosystem that simplifies and improves how that care is delivered.",
-    status: "Published — IEEE Xplore",
+      "Quality healthcare access is a worldwide problem — disjointed systems, slow diagnostics, and dense medical documentation all sit between people and care. Athercare sets out a unified digital health ecosystem that simplifies and improves how that care is delivered.",
+    status: "Published and presented — IEEE Xplore",
     url: "",
-    image: {
-      src: "",
-      alt: "Athercare paper on IEEE Xplore",
-      spec: "1600×900 · IEEE Xplore listing or a figure from the paper",
-    },
+    image: "pub-athercare-ieee",
+  },
+  {
+    title:
+      "Predictive Maintenance of Industrial Equipment Using Temporal Graph Neural Networks: A Step Towards Novelty",
+    venue: "International Journal of Advanced Trends in Engineering and Management (IJATEM)",
+    publisher: "IJATEM — ISSN 2583-7052",
+    date: "November 2024",
+    authors: ["Navyashree N"],
+    authorHighlight: "Navyashree N",
+    abstract:
+      "Industrial equipment fails on its own schedule, and fixed maintenance intervals either arrive too late or waste working parts. This paper models the plant as a temporal graph, letting failure prediction draw on how equipment relationships evolve rather than on each machine's history in isolation.",
+    status: "Published — runner-up, paper presentation at ICRCCT 2K24",
+    doi: "https://doi.org/10.59544/vagt5010/icrcct24p103",
+    image: "pub-ijatem",
+  },
+  {
+    title: "GPU-Accelerated Bone Morphing for Imageless Total Knee Arthroplasty",
+    venue: "MICCAI 2026 workshop track",
+    publisher: "In preparation",
+    date: "2026",
+    authors: ["Navyashree N", "IITM HTIC team"],
+    authorHighlight: "Navyashree N",
+    abstract:
+      "Neural signed distance fields with Gaussian RBF field-space warping, registered against intraoperatively probed points, reconstructing femur and tibia geometry in roughly seven milliseconds with no preoperative CT.",
+    status: "In preparation — not yet peer-reviewed",
   },
 ];

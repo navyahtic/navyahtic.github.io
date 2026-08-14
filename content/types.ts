@@ -67,10 +67,29 @@ export type Certification = {
   name: string;
   issuer: string;
   issued: string;
-  /** Paste the real badge/credential URL here — see README. */
+  /** One line of context, only where the name alone undersells it. */
+  detail?: string;
+  /** Certificate number printed on the document. */
+  credentialId?: string;
+  /** Direct verification link. See README for where to paste these. */
   credentialUrl?: string;
-  /** Issuer's official verification portal. Used when credentialUrl is not set yet. */
+  /** Issuer's verification portal — the fallback when credentialUrl is empty. */
   issuerUrl: string;
+  /** Gallery id from scripts/gallery-manifest.mjs. */
+  image?: string;
+};
+
+/** Workshops, competitions, and volunteering all share this shape. */
+export type Activity = {
+  title: string;
+  org: string;
+  date: string;
+  detail: string;
+  /** Called out in accent — a placing, a percentile, a role. */
+  highlight?: string;
+  credentialId?: string;
+  /** Gallery id from scripts/gallery-manifest.mjs. */
+  image?: string;
 };
 
 export type Education = {
@@ -86,9 +105,10 @@ export type Award = {
   title: string;
   detail: string;
   year: string;
-  /** Leave "" until you have the conference/organiser name confirmed. */
+  /** Omit until the organiser name is confirmed — the UI hides it rather than showing a gap. */
   issuer?: string;
-  image?: ImageSlot;
+  /** Gallery id from scripts/gallery-manifest.mjs. */
+  image?: string;
 };
 
 export type SkillGroup = {

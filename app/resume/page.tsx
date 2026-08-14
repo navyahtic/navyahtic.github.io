@@ -6,6 +6,9 @@ import { education, skills } from "@/content/education";
 import { certifications } from "@/content/certifications";
 import { awards } from "@/content/awards";
 import { projects } from "@/content/projects";
+import { publications } from "@/content/publications";
+import { competitions, volunteering, workshops } from "@/content/activities";
+import type { Activity } from "@/content/types";
 
 import { SplitText } from "@/components/hero/SplitText";
 import { Reveal } from "@/components/motion/Reveal";
@@ -99,6 +102,35 @@ export default function ResumePage() {
                     </li>
                   ))}
                 </ul>
+              </Reveal>
+            </li>
+          ))}
+        </ol>
+      </Section>
+
+      {/* ── Publications ─────────────────────────────────────── */}
+      <Section title="Publications">
+        <ol className="space-y-6">
+          {publications.map((pub, i) => (
+            <li key={pub.title}>
+              <Reveal index={Math.min(i, 3)}>
+                <h3 className="font-display text-h3 max-w-3xl text-balance text-bone">
+                  {pub.title}
+                </h3>
+                <p className="mt-2 max-w-3xl text-sm text-ash">
+                  {pub.venue} — {pub.publisher}, {pub.date}
+                </p>
+                <p className="mt-1 font-mono text-[0.7rem] text-ash-dim">{pub.status}</p>
+                {pub.doi && (
+                  <a
+                    href={pub.doi}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="link-draw mt-2 inline-block font-mono text-[0.7rem] tracking-[0.1em] text-bone uppercase"
+                  >
+                    DOI ↗
+                  </a>
+                )}
               </Reveal>
             </li>
           ))}
@@ -205,6 +237,21 @@ export default function ResumePage() {
         </ul>
       </Section>
 
+      {/* ── Competitions ─────────────────────────────────────── */}
+      <Section title="Competitions">
+        <ActivityList items={competitions} />
+      </Section>
+
+      {/* ── Volunteering ─────────────────────────────────────── */}
+      <Section title="Volunteering">
+        <ActivityList items={volunteering} />
+      </Section>
+
+      {/* ── Workshops ────────────────────────────────────────── */}
+      <Section title="Workshops">
+        <ActivityList items={workshops} />
+      </Section>
+
       {/* ── Community ────────────────────────────────────────── */}
       <Section title="Community">
         <ul className="space-y-4">
@@ -223,6 +270,26 @@ export default function ResumePage() {
         </ul>
       </Section>
     </>
+  );
+}
+
+function ActivityList({ items }: { items: Activity[] }) {
+  return (
+    <ul className="space-y-4">
+      {items.map((item, i) => (
+        <li key={item.title}>
+          <Reveal index={Math.min(i, 3)}>
+            <div className="flex flex-wrap items-baseline justify-between gap-x-6">
+              <p className="max-w-2xl text-bone-2">
+                <span className="text-bone">{item.title}</span> — {item.org}
+                {item.highlight && <span className="text-ember"> · {item.highlight}</span>}
+              </p>
+              <p className="font-mono text-xs whitespace-nowrap text-ash-dim">{item.date}</p>
+            </div>
+          </Reveal>
+        </li>
+      ))}
+    </ul>
   );
 }
 
