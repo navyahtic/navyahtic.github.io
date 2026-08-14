@@ -16,7 +16,8 @@ npm run dev        # http://localhost:3000
 
 ## Deploying
 
-Push to `main`. A GitHub Action builds the site and publishes it — nothing else to run.
+Run one command. It builds the static site and pushes it to the `gh-pages` branch, which is what
+GitHub Pages serves.
 
 ```bash
 git add -A
