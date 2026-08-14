@@ -106,5 +106,22 @@ for (const p of photos) {
 }
 console.log(`${photos.length} event photos processed`);
 
+/* ── Certificate scans ──────────────────────────────────────
+   Documents, not photographs: fit inside the box so nothing is cropped,
+   and keep enough resolution that the text stays readable when opened. */
+const documents = [
+  { src: "nmms.png", out: "gallery/award-nmms.webp" },
+  { src: "oracle.png", out: "gallery/cert-oracle.webp" },
+];
+
+for (const d of documents) {
+  await sharp(`${PHOTOS}/${d.src}`)
+    .rotate()
+    .resize({ width: 1400, withoutEnlargement: true })
+    .webp({ quality: 82, effort: 6 })
+    .toFile(`${OUT}/${d.out}`);
+}
+console.log(`${documents.length} certificate scans processed`);
+
 const files = await fs.readdir(OUT);
 console.log(`${covers.length} covers + avatar + portrait written. ${files.length} files in ${OUT}`);
