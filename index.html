@@ -187,31 +187,44 @@
           <h2 class="h2 article-title">About me</h2>
         </header>
 
-        <section class="about-text">
-          <p>
-            I build systems for the operating room, where a millimetre is the tolerance and ten
-            milliseconds is the whole budget. At IIT Madras' Healthcare Technology Innovation Centre I
-            own the GPU morphing stack for imageless total knee arthroplasty — reconstructing a
-            patient's femur and tibia from points swept with a probe in theatre, instead of from a CT
-            taken days earlier.
-          </p>
+        <section class="about-hero">
+          <figure class="about-portrait">
+            <img src="./assets/images/portrait.jpg" alt="Navyashree N" loading="lazy" width="700"
+              height="875">
+          </figure>
 
-          <p>
-            Most of what I have learned came from replacing something that already worked. The
-            bone-synthesis pipeline I inherited ran on a thin-plate-spline formulation from 1989. It hit
-            its landmarks and shrank the bone by two thirds. Rebuilding it around Bayesian Coherent
-            Point Drift meant reading that 1989 paper closely enough to understand why it was written
-            that way, and then writing 89 tests — including one that checks the output is byte-identical
-            run to run — because in a surgical pipeline reproducibility is a safety property, not a
-            nicety.
-          </p>
+          <div class="about-text">
+            <p>
+              I'm a research engineer working in <strong>medtech at IIT Madras' Healthcare Technology
+                Innovation Centre</strong> — the kind of engineering where a millimetre is the tolerance
+              and a few milliseconds is the whole budget, because the software ends at a surgeon's hand.
+              It taught me the habit I care most about: writing code that has to be right, and then
+              proving it is.
+            </p>
 
-          <p>
-            Before the research work I spent a year shipping applied ML: spam classifiers, price
-            regressors, housing pipelines — always taken past the notebook and served behind a real API,
-            because a model nobody can call is a model nobody uses. That habit is the throughline. I
-            like the part of the job where a result becomes a thing that runs.
-          </p>
+            <p>
+              I did not arrive here in a straight line. I came second in the state in the
+              <strong>NMMS national examination</strong>, finished my Computer Science degree with a
+              9+ CGPA and the <strong>Best Outgoing Student award</strong>, and spent the years in
+              between shipping applied machine learning — spam classifiers, price regressors, housing
+              pipelines — always taken past the notebook and served behind a real API, because a model
+              nobody can call is a model nobody uses.
+            </p>
+
+            <p>
+              Somewhere in there I also learned to publish. Two papers now, one with IEEE, one with a
+              DOI — and a runner-up placing at an international conference for presenting the second.
+              Writing research turned out to be the same discipline as writing tests: say precisely what
+              you did, and show why it holds.
+            </p>
+
+            <p>
+              These days I mentor with <strong>Girls Leading Tech</strong>, which is easily the most
+              useful hour of my week. I remember exactly how opaque this field looked from the outside,
+              and how much of the barrier was information nobody thought to hand over. I'm currently
+              open to software and machine learning engineering roles.
+            </p>
+          </div>
         </section>
 
 
@@ -231,8 +244,8 @@
               <p class="stat-label">CGPA / 10</p>
             </li>
             <li class="stat-item content-card">
-              <p class="stat-value">6</p>
-              <p class="stat-label">Hackathons &amp; contests</p>
+              <p class="stat-value">2nd</p>
+              <p class="stat-label">State rank, NMMS</p>
             </li>
           </ul>
         </section>
@@ -592,23 +605,13 @@
           <ul class="project-list">
 
             <li class="project-item active" data-filter-item data-category="research">
-              <a href="#" data-project-open="gpuneuromorph">
+              <a href="#" data-project-open="medtech">
                 <figure class="project-img">
                   <div class="project-item-icon-box"><ion-icon name="eye-outline"></ion-icon></div>
-                  <img src="./assets/images/project-gpuneuromorph.jpg" alt="GPUNeuroMorph" loading="lazy">
+                  <img src="./assets/images/project-medtech.jpg" alt="Medical imaging R&amp;D at IITM HTIC"
+                    loading="lazy">
                 </figure>
-                <h3 class="project-title">GPUNeuroMorph</h3>
-                <p class="project-category">Research · IIT Madras HTIC</p>
-              </a>
-            </li>
-
-            <li class="project-item active" data-filter-item data-category="research">
-              <a href="#" data-project-open="bcpd">
-                <figure class="project-img">
-                  <div class="project-item-icon-box"><ion-icon name="eye-outline"></ion-icon></div>
-                  <img src="./assets/images/project-bcpd.jpg" alt="BCPD++ Bone Synthesis" loading="lazy">
-                </figure>
-                <h3 class="project-title">BCPD++ Bone Synthesis</h3>
+                <h3 class="project-title">Medical Imaging R&amp;D</h3>
                 <p class="project-category">Research · IIT Madras HTIC</p>
               </a>
             </li>
@@ -718,6 +721,42 @@
             </li>
 
             <li class="blog-post-item">
+              <div class="cred-card cred-card--plain">
+                <div class="cred-crest">
+                  <ion-icon name="trophy-outline"></ion-icon>
+                </div>
+                <div class="blog-content">
+                  <div class="blog-meta">
+                    <p class="blog-category">Award</p><span class="dot"></span><time datetime="2026">2026</time>
+                  </div>
+                  <h3 class="h3 blog-item-title">Best Outgoing Student</h3>
+                  <p class="blog-text">
+                    Awarded on graduating from AMC Engineering College — the department's recognition
+                    for the graduating class.
+                  </p>
+                </div>
+              </div>
+            </li>
+
+            <li class="blog-post-item">
+              <div class="cred-card cred-card--plain">
+                <div class="cred-crest">
+                  <ion-icon name="ribbon-outline"></ion-icon>
+                </div>
+                <div class="blog-content">
+                  <div class="blog-meta">
+                    <p class="blog-category">National exam</p><span class="dot"></span><time>State 2nd</time>
+                  </div>
+                  <h3 class="h3 blog-item-title">2nd in the State — NMMS</h3>
+                  <p class="blog-text">
+                    Second place statewide in the National Means-cum-Merit Scholarship examination, a
+                    national-level scholarship exam sat across India.
+                  </p>
+                </div>
+              </div>
+            </li>
+
+            <li class="blog-post-item">
               <div class="cred-card">
                 <figure class="blog-banner-box">
                   <img src="./assets/images/gallery/comp-young-turks.webp" alt="Young Turks 2025 certificate of merit"
@@ -789,24 +828,28 @@
 
             <li><a class="cert-card" href="https://www.uipath.com/learning/certification" target="_blank"
                 rel="noopener">
+                <span class="cert-thumb"><img src="./assets/images/gallery/cert-uipath.webp" alt="Automation Developer Associate certificate" loading="lazy"></span>
                 <span class="cert-issuer">UiPath</span>
                 <span class="cert-name">Automation Developer Associate</span>
                 <span class="cert-meta">Nov 2025 · ID 004081</span>
               </a></li>
 
             <li><a class="cert-card" href="https://www.credly.com/go/5PvYp5nO" target="_blank" rel="noopener">
+                <span class="cert-thumb"><img src="./assets/images/gallery/cert-aws-foundations.webp" alt="AWS Academy Graduate — Cloud Foundations certificate" loading="lazy"></span>
                 <span class="cert-issuer">Amazon Web Services</span>
                 <span class="cert-name">AWS Academy Graduate — Cloud Foundations</span>
                 <span class="cert-meta">Jun 2024 · Verify <ion-icon name="open-outline"></ion-icon></span>
               </a></li>
 
             <li><a class="cert-card" href="https://www.credly.com/go/HA8jEf0R" target="_blank" rel="noopener">
+                <span class="cert-thumb"><img src="./assets/images/gallery/cert-aws-security.webp" alt="AWS Academy — Cloud Security Foundations certificate" loading="lazy"></span>
                 <span class="cert-issuer">Amazon Web Services</span>
                 <span class="cert-name">AWS Academy — Cloud Security Foundations</span>
                 <span class="cert-meta">Sep 2024 · Verify <ion-icon name="open-outline"></ion-icon></span>
               </a></li>
 
             <li><a class="cert-card" href="https://www.aspireleaders.org/" target="_blank" rel="noopener">
+                <span class="cert-thumb"><img src="./assets/images/gallery/cert-aspire.webp" alt="Aspire Leaders Program 2025 certificate" loading="lazy"></span>
                 <span class="cert-issuer">Aspire Institute</span>
                 <span class="cert-name">Aspire Leaders Program 2025</span>
                 <span class="cert-meta">Oct 2025 · 40 hours</span>
@@ -814,6 +857,7 @@
 
             <li><a class="cert-card" href="https://www.paloaltonetworks.com/cyberpedia/education" target="_blank"
                 rel="noopener">
+                <span class="cert-thumb"><img src="./assets/images/gallery/cert-palo-cloud.webp" alt="Cloud Security Fundamentals certificate" loading="lazy"></span>
                 <span class="cert-issuer">Palo Alto Networks</span>
                 <span class="cert-name">Cloud Security Fundamentals</span>
                 <span class="cert-meta">Mar 2025</span>
@@ -821,6 +865,7 @@
 
             <li><a class="cert-card" href="https://www.paloaltonetworks.com/cyberpedia/education" target="_blank"
                 rel="noopener">
+                <span class="cert-thumb"><img src="./assets/images/gallery/cert-palo-network.webp" alt="Network Security Fundamentals certificate" loading="lazy"></span>
                 <span class="cert-issuer">Palo Alto Networks</span>
                 <span class="cert-name">Network Security Fundamentals</span>
                 <span class="cert-meta">Mar 2025</span>
@@ -834,36 +879,42 @@
               </a></li>
 
             <li><a class="cert-card" href="https://www.ictacademy.in/" target="_blank" rel="noopener">
+                <span class="cert-thumb"><img src="./assets/images/gallery/cert-ict-rpa.webp" alt="Robotic Process Automation certificate" loading="lazy"></span>
                 <span class="cert-issuer">ICT Academy · Rockwell Automation</span>
                 <span class="cert-name">Robotic Process Automation</span>
                 <span class="cert-meta">Aug 2025 · G-2025-G4592-0015</span>
               </a></li>
 
             <li><a class="cert-card" href="https://eduskillsfoundation.org/" target="_blank" rel="noopener">
+                <span class="cert-thumb"><img src="./assets/images/gallery/cert-eduskills-android.webp" alt="Android Developer Virtual Internship certificate" loading="lazy"></span>
                 <span class="cert-issuer">EduSkills · AICTE · Google</span>
                 <span class="cert-name">Android Developer Virtual Internship</span>
                 <span class="cert-meta">Jun 2024 · 10 weeks</span>
               </a></li>
 
             <li><a class="cert-card" href="https://learning.tcsionhub.in/" target="_blank" rel="noopener">
+                <span class="cert-thumb"><img src="./assets/images/gallery/cert-tcs-ion.webp" alt="Career Edge — Young Professional certificate" loading="lazy"></span>
                 <span class="cert-issuer">TCS iON</span>
                 <span class="cert-name">Career Edge — Young Professional</span>
                 <span class="cert-meta">Sep 2025</span>
               </a></li>
 
             <li><a class="cert-card" href="https://trainings.internshala.com/" target="_blank" rel="noopener">
+                <span class="cert-thumb"><img src="./assets/images/gallery/cert-internshala-web.webp" alt="Web Development certificate" loading="lazy"></span>
                 <span class="cert-issuer">Internshala · NSDC</span>
                 <span class="cert-name">Web Development</span>
                 <span class="cert-meta">May 2024</span>
               </a></li>
 
             <li><a class="cert-card" href="https://coursera.org/verify/CDR2743PTZPR" target="_blank" rel="noopener">
+                <span class="cert-thumb"><img src="./assets/images/gallery/cert-coursera-ads.webp" alt="Create a Google Ads Search Campaign certificate" loading="lazy"></span>
                 <span class="cert-issuer">Coursera</span>
                 <span class="cert-name">Create a Google Ads Search Campaign</span>
                 <span class="cert-meta">Jan 2024 · Verify <ion-icon name="open-outline"></ion-icon></span>
               </a></li>
 
             <li><a class="cert-card" href="https://www.mindler.com/" target="_blank" rel="noopener">
+                <span class="cert-thumb"><img src="./assets/images/gallery/cert-mindler.webp" alt="International Certified Career Coach certificate" loading="lazy"></span>
                 <span class="cert-issuer">Mindler · CDA</span>
                 <span class="cert-name">International Certified Career Coach</span>
                 <span class="cert-meta">Jan 2024</span>
@@ -897,6 +948,7 @@
             </li>
 
             <li class="cred-row content-card">
+              <figure class="cred-row-thumb"><img src="./assets/images/gallery/comp-young-turks.webp" alt="Young Turks 2025" loading="lazy"></figure>
               <div class="cred-row-main">
                 <h4 class="h4">Young Turks 2025</h4>
                 <p>Naukri Campus — India's largest skill contest, run with Amgen, Infosys BPM, Godrej and Hitachi.</p>
@@ -905,6 +957,7 @@
             </li>
 
             <li class="cred-row content-card">
+              <figure class="cred-row-thumb"><img src="./assets/images/gallery/comp-colossus.webp" alt="COLOSSUS 2.0" loading="lazy"></figure>
               <div class="cred-row-main">
                 <h4 class="h4">COLOSSUS 2.0</h4>
                 <p>Dr. Ambedkar Institute of Technology, Bengaluru — twenty-four hour hackathon.</p>
@@ -913,6 +966,7 @@
             </li>
 
             <li class="cred-row content-card">
+              <figure class="cred-row-thumb"><img src="./assets/images/gallery/comp-sih.webp" alt="Smart India Hackathon 2025" loading="lazy"></figure>
               <div class="cred-row-main">
                 <h4 class="h4">Smart India Hackathon 2025</h4>
                 <p>Ministry of Education Innovation Cell · AMCEC — internal round of the national hackathon.</p>
@@ -921,6 +975,7 @@
             </li>
 
             <li class="cred-row content-card">
+              <figure class="cred-row-thumb"><img src="./assets/images/gallery/comp-cypherquest.webp" alt="CypherQuest" loading="lazy"></figure>
               <div class="cred-row-main">
                 <h4 class="h4">CypherQuest</h4>
                 <p>Dayananda Sagar Academy of Technology and Management — twenty-four hour hackathon.</p>
@@ -929,6 +984,7 @@
             </li>
 
             <li class="cred-row content-card">
+              <figure class="cred-row-thumb"><img src="./assets/images/gallery/comp-aincat.webp" alt="AINCAT 2025" loading="lazy"></figure>
               <div class="cred-row-main">
                 <h4 class="h4">AINCAT 2025</h4>
                 <p>Naukri Campus — All India Campus Aptitude Test.</p>
@@ -945,6 +1001,17 @@
 
             <li class="cred-row content-card">
               <div class="cred-row-main">
+                <h4 class="h4">Mentor — Girls Leading Tech</h4>
+                <p>Mentoring students entering computer science and engineering. Easily the most useful
+                  hour of my week — I remember how opaque this field looks from the outside, and how much
+                  of the barrier is just information nobody thought to hand over.</p>
+              </div>
+              <div class="cred-row-side"><span class="cred-tag">Mentor</span><span>Ongoing</span></div>
+            </li>
+
+            <li class="cred-row content-card">
+              <figure class="cred-row-thumb"><img src="./assets/images/gallery/vol-agentic-ai-day.webp" alt="Google Cloud Agentic AI Day 2025" loading="lazy"></figure>
+              <div class="cred-row-main">
                 <h4 class="h4">Google Cloud Agentic AI Day 2025</h4>
                 <p>Google Cloud · Hack2skill — volunteered across a thirty-hour in-person build challenge,
                   keeping operations running for participants on the floor.</p>
@@ -953,6 +1020,7 @@
             </li>
 
             <li class="cred-row content-card">
+              <figure class="cred-row-thumb"><img src="./assets/images/gallery/vol-hackzion.webp" alt="HACKZION V.2" loading="lazy"></figure>
               <div class="cred-row-main">
                 <h4 class="h4">HACKZION V.2</h4>
                 <p>AMC Engineering College — recognised for exceptional contribution as a volunteer on a
@@ -962,6 +1030,7 @@
             </li>
 
             <li class="cred-row content-card">
+              <figure class="cred-row-thumb"><img src="./assets/images/gallery/vol-parishe.webp" alt="Basavanagudi Kadalekayi Parishe 2025" loading="lazy"></figure>
               <div class="cred-row-main">
                 <h4 class="h4">Basavanagudi Kadalekayi Parishe 2025</h4>
                 <p>Zero Waste Collective · Rotary Bangalore Midtown — waste management for one of
@@ -1002,6 +1071,7 @@
           <ul class="cred-list">
 
             <li class="cred-row content-card">
+              <figure class="cred-row-thumb"><img src="./assets/images/gallery/wk-git.webp" alt="Git Version Control System" loading="lazy"></figure>
               <div class="cred-row-main">
                 <h4 class="h4">Git Version Control System</h4>
                 <p>MAGNUZ GNU/Linux Users Group · Free Software Movement Karnataka — where version
@@ -1011,6 +1081,7 @@
             </li>
 
             <li class="cred-row content-card">
+              <figure class="cred-row-thumb"><img src="./assets/images/gallery/wk-capx-llm.webp" alt="Future of Tech: AI &amp; LLMs" loading="lazy"></figure>
               <div class="cred-row-main">
                 <h4 class="h4">Future of Tech: AI &amp; LLMs</h4>
                 <p>Capx — technical webinar on the direction of large language models.</p>
@@ -1019,6 +1090,7 @@
             </li>
 
             <li class="cred-row content-card">
+              <figure class="cred-row-thumb"><img src="./assets/images/gallery/wk-autocad.webp" alt="AutoCAD 2D" loading="lazy"></figure>
               <div class="cred-row-main">
                 <h4 class="h4">AutoCAD 2D</h4>
                 <p>Learn Delta — workshop with a graded final examination.</p>
@@ -1027,6 +1099,7 @@
             </li>
 
             <li class="cred-row content-card">
+              <figure class="cred-row-thumb"><img src="./assets/images/gallery/wk-tareeqa-hr.webp" alt="Human Resource Skills" loading="lazy"></figure>
               <div class="cred-row-main">
                 <h4 class="h4">Human Resource Skills</h4>
                 <p>Tareeqa Global Solution — how hiring and people functions actually operate.</p>

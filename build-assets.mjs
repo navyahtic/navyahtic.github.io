@@ -17,8 +17,7 @@ const PORTRAIT = "O:/portfolio/public/images/portrait-plate.webp";
 // vCard's palette: near-black cards, gold accent. Each cover gets its own
 // hue so the portfolio grid reads as a set rather than a repeat.
 const covers = [
-  { file: "project-gpuneuromorph.jpg", a: "#FFDB70", b: "#FF9B45", label: "GPU" },
-  { file: "project-bcpd.jpg", a: "#7EE8FA", b: "#4A6CF7", label: "BCPD" },
+  { file: "project-medtech.jpg", a: "#FFDB70", b: "#FF7A45", label: "MED" },
   { file: "project-ecoecho.jpg", a: "#6EE7A8", b: "#1E9E6A", label: "ECO" },
   { file: "project-aitutor.jpg", a: "#C78BFF", b: "#7B3FE4", label: "AI" },
   { file: "project-rfid.jpg", a: "#FFB4A2", b: "#E5566D", label: "RFID" },

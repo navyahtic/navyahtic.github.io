@@ -9,54 +9,29 @@
  */
 
 const PROJECTS = {
-  gpuneuromorph: {
+  medtech: {
     kicker: 'Research · IIT Madras HTIC · 2026',
-    title: 'GPUNeuroMorph',
-    image: './assets/images/project-gpuneuromorph.jpg',
-    stack: ['CUDA', 'Holoscan SDK', 'PyTorch', 'C++', 'Neural SDF', 'Python'],
-    role: 'Research engineer — algorithm design, CUDA implementation, benchmarking',
+    title: 'Medical Imaging R&D',
+    image: './assets/images/project-medtech.jpg',
+    stack: ['CUDA', 'C++', 'Python', 'PyTorch', 'Holoscan SDK', 'CMake'],
+    role: 'Research engineer — algorithm work, GPU implementation, validation',
     problem:
-      'Total knee arthroplasty navigation normally begins with a preoperative CT. The patient is scanned, the bone is segmented, and the surgical plan is built against that model. The scan costs time, money and radiation dose, and it fixes the plan to anatomy captured days before the incision. The alternative is to build the model in theatre from points the surgeon sweeps across exposed bone — but that only works if the morphing is fast enough to feel instantaneous and accurate enough to plan a cut against. Those two requirements pull directly against each other.',
+      'Surgical navigation software sits in an unforgiving place. It has to be accurate to within a fraction of a millimetre, it has to finish inside a single frame so the surgeon never feels the system thinking, and it has to give the same answer every single time it runs. Research code is rarely written to any of those three standards at once, and the gap between a promising result and something a theatre can rely on is most of the work.',
     approach: [
-      'Represent the bone as a neural signed distance field — a multiresolution hash grid feeding a small MLP — so the surface is continuous and queryable at any resolution rather than frozen into a mesh at authoring time.',
-      'Warp in field space using Gaussian radial basis functions rather than displacing vertices, so the surface stays watertight under deformations large enough to break a mesh-based approach.',
-      'Register the sparse probed points against the statistical model with Coherent Point Drift over hierarchical Gaussian mixtures, keeping the correspondence search well below the quadratic cost of the naive formulation.',
-      'Schedule the whole path as a Holoscan SDK operator graph so the intraoperative loop never round-trips to the host — data stays resident on the GPU from probe input to rendered surface.',
+      'Build and maintain the GPU components of the imaging pipeline, keeping the real-time path resident on the device rather than round-tripping to the host.',
+      'Replace legacy numerical methods with better-founded modern formulations, released behind the existing interfaces so the surgical software adopts them without a single call-site change.',
+      'Hold numerical work to a test suite rather than a demo — including determinism checks that assert the output is byte-identical run to run, because in a pipeline that ends at a cut reproducibility is a safety property, not a convenience.',
+      'Validate against large sets of physically measured surface points instead of synthetic data, and report against the accuracy gate the clinical team set.',
     ],
     metrics: [
-      { value: '~7 ms', label: 'GPU latency, full morph' },
-      { value: '0.47 mm', label: 'Femur surface error' },
-      { value: '0.33 mm', label: 'Tibia surface error' },
-      { value: 'Zero', label: 'Preoperative CT scans required' },
+      { value: 'Sub-frame', label: 'Real-time GPU latency' },
+      { value: 'Sub-millimetre', label: 'Reconstruction accuracy' },
+      { value: '89', label: 'Tests, incl. byte-identical determinism' },
+      { value: '~20,000', label: 'Measured points validated against' },
     ],
-    note: 'Internal benchmarks measured on the lab rig. The work is ongoing and has not yet been peer-reviewed — figures are preliminary.',
+    note: 'Ongoing work at IIT Madras HTIC. Specific figures are internal and pending publication, so they are described qualitatively here.',
     outcome:
-      'The result that mattered was not the accuracy number on its own, it was the accuracy number holding at seven milliseconds. Anything slower than a frame and the surgeon feels the system thinking; anything looser than half a millimetre and the plan is not worth building on. Removing the preoperative CT removes a scan, a wait and a dose from the patient’s path to surgery.',
-  },
-
-  bcpd: {
-    kicker: 'Research · IIT Madras HTIC · 2026',
-    title: 'BCPD++ Bone Synthesis',
-    image: './assets/images/project-bcpd.jpg',
-    stack: ['C++', 'Bayesian CPD', 'Python', 'NumPy', 'CMake'],
-    role: 'Research engineer — reformulation, implementation, validation, release',
-    problem:
-      'Bone synthesis at HTIC ran on thin-plate splines, a formulation published in 1989 and never revisited. TPS interpolates landmarks, but it has no notion of the body it is deforming — it treats the bone as a rubber sheet pinned at a handful of points. In practice it hit its landmarks only approximately and shrank the reconstructed bone by as much as 65% of donor volume. A geometry that wrong cannot carry a surgical plan, no matter how neatly it fits the landmarks it was given.',
-    approach: [
-      'Reformulated the whole stage as Bayesian Coherent Point Drift: probabilistic point-set registration with a motion-coherence prior, so the bone deforms like a body rather than like a sheet.',
-      'Split it into two stages — nine anatomical landmarks drive a whole-bone estimate, then the probed surface refines that estimate where the surgeon actually has data.',
-      'Released it as drop-in replacement executables behind the existing interface, so adoption required no changes to any calling code.',
-      'Wrote 89 tests, including a byte-identical determinism test: same input, same bytes out, every run, every machine. In a pipeline that ends at a cut, reproducibility is a safety property rather than a convenience.',
-    ],
-    metrics: [
-      { value: '1.8×10⁻¹³ mm', label: 'Landmark residual', against: '0.0467 mm under TPS' },
-      { value: '2.7%', label: 'Volume deviation from donor', against: '65% shrinkage under TPS' },
-      { value: '43%', label: 'Better surface morphing' },
-      { value: '0.24 mm', label: 'RMSE vs ~20,000 swept points', against: '0.5 mm accuracy gate' },
-    ],
-    note: 'Validated against roughly 20,000 surface points swept by technicians on donor specimens, measured against the team’s 0.5 mm accuracy gate.',
-    outcome:
-      'The landmark residual moving from 0.0467 mm to 1.8×10⁻¹³ mm is really a statement that the new formulation solves the constraint exactly instead of approximating it. The volume figure is the one that changed clinical confidence: a bone that keeps its donor volume to within 2.7% is a bone you can plan against.',
+      'The lesson that generalises beyond medical imaging: on systems where being approximately right is not good enough, the tests are the product. Anyone can produce a good number once — the engineering is in producing the same number forever.',
   },
 
   ecoecho: {
