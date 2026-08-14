@@ -22,7 +22,8 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <header className="shell pt-40 pb-16">
+      <header className="shell relative pt-40 pb-16">
+        <div className="mesh" aria-hidden="true" />
         <Reveal>
           <p className="eyebrow">About</p>
         </Reveal>
@@ -31,7 +32,7 @@ export default function AboutPage() {
           immediate
           delay={100}
           text="I like the part where a result becomes a thing that runs."
-          className="font-display text-h1 mt-6 max-w-5xl text-balance text-bone"
+          className="font-display text-h1 relative mt-6 max-w-5xl text-balance text-bone"
         />
       </header>
 
@@ -40,7 +41,9 @@ export default function AboutPage() {
         <div className="order-2 lg:order-1">
           {profile.bio.map((para, i) => (
             <Reveal key={i} index={i}>
-              <p className="mb-6 max-w-2xl text-lg leading-relaxed text-bone-2">{para}</p>
+              <p className="mb-6 max-w-2xl text-lg leading-relaxed text-bone-2">
+                {para}
+              </p>
             </Reveal>
           ))}
 
@@ -73,14 +76,18 @@ export default function AboutPage() {
         </div>
 
         <Reveal className="order-1 lg:order-2">
-          <div className="lg:sticky lg:top-28">
+          <div className="relative lg:sticky lg:top-28">
+            <div
+              aria-hidden="true"
+              className="grad-bg absolute -inset-3 rounded-2xl opacity-15 blur-2xl"
+            />
             <Image
               {...portraits.plate}
               alt="Navyashree N"
               priority
               placeholder="blur"
               sizes="(max-width: 1024px) 90vw, 40vw"
-              className="w-full rounded-sm object-cover"
+              className="relative w-full rounded-2xl object-cover shadow-[var(--shadow-lift)]"
             />
             <p className="mt-4 font-mono text-[0.7rem] tracking-[0.1em] text-ash-dim">
               {profile.location}
@@ -104,7 +111,10 @@ export default function AboutPage() {
 
           <ol className="mt-16">
             {experience.map((role, i) => (
-              <li key={`${role.org}-${role.start}`} className="border-t border-line py-10 last:border-b">
+              <li
+                key={`${role.org}-${role.start}`}
+                className="border-t border-line py-10 last:border-b"
+              >
                 <Reveal index={Math.min(i, 3)}>
                   <div className="grid gap-6 lg:grid-cols-[0.28fr_0.72fr]">
                     <div>
@@ -123,7 +133,9 @@ export default function AboutPage() {
                     </div>
 
                     <div>
-                      <h3 className="font-display text-h3 text-bone">{role.title}</h3>
+                      <h3 className="font-display text-h3 text-bone">
+                        {role.title}
+                      </h3>
                       <p className="mt-1 text-sm text-ash">
                         {role.org} — {role.location}
                       </p>
@@ -136,15 +148,24 @@ export default function AboutPage() {
 
                       <ul className="mt-5 space-y-3">
                         {role.bullets.map((bullet, b) => (
-                          <li key={b} className="flex max-w-2xl gap-4 text-bone-2">
-                            <span aria-hidden="true" className="mt-2.5 h-px w-4 shrink-0 bg-ash-dim" />
+                          <li
+                            key={b}
+                            className="flex max-w-2xl gap-4 text-bone-2"
+                          >
+                            <span
+                              aria-hidden="true"
+                              className="mt-2.5 h-px w-4 shrink-0 bg-ash-dim"
+                            />
                             <span>{bullet}</span>
                           </li>
                         ))}
                       </ul>
 
                       {role.tags && (
-                        <ul className="mt-5 flex flex-wrap gap-x-4 gap-y-2" aria-label="Technologies">
+                        <ul
+                          className="mt-5 flex flex-wrap gap-x-4 gap-y-2"
+                          aria-label="Technologies"
+                        >
                           {role.tags.map((tag) => (
                             <li
                               key={tag}
@@ -179,7 +200,10 @@ export default function AboutPage() {
 
           <ol className="mt-14">
             {publications.map((pub, i) => (
-              <li key={pub.title} className="border-t border-line py-8 last:border-b">
+              <li
+                key={pub.title}
+                className="border-t border-line py-8 last:border-b"
+              >
                 <Reveal index={Math.min(i, 3)}>
                   <p className="font-mono text-[0.68rem] tracking-[0.14em] text-ember uppercase">
                     {pub.publisher} — {pub.date}
@@ -226,14 +250,18 @@ export default function AboutPage() {
                     id={award.image}
                     alt={award.title}
                     ratio="4/3"
-                    fit={award.image === "award-icrcct-stage" ? "cover" : "contain"}
+                    fit={
+                      award.image === "award-icrcct-stage" ? "cover" : "contain"
+                    }
                     sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 30vw"
                     className="mb-5"
                   />
                   <p className="font-mono text-[0.65rem] tracking-[0.14em] text-ember uppercase">
                     {award.year}
                   </p>
-                  <h3 className="font-display text-h3 mt-2 text-bone">{award.title}</h3>
+                  <h3 className="font-display text-h3 mt-2 text-bone">
+                    {award.title}
+                  </h3>
                   <p className="mt-2 text-sm text-ash">{award.detail}</p>
                   {award.issuer && (
                     <p className="mt-2 font-mono text-[0.68rem] leading-relaxed text-ash-dim">
@@ -272,7 +300,9 @@ export default function AboutPage() {
           <dl className="mt-14 grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
             {skills.map((group, i) => (
               <Reveal key={group.group} index={i % 3}>
-                <dt className="eyebrow border-b border-line pb-3">{group.group}</dt>
+                <dt className="eyebrow border-b border-line pb-3">
+                  {group.group}
+                </dt>
                 <dd className="mt-4">
                   <ul className="space-y-1.5">
                     {group.items.map((item) => (
@@ -303,16 +333,23 @@ export default function AboutPage() {
             />
             <ol className="mt-10">
               {education.map((item, i) => (
-                <li key={item.qualification} className="border-t border-line py-6 last:border-b">
+                <li
+                  key={item.qualification}
+                  className="border-t border-line py-6 last:border-b"
+                >
                   <Reveal index={i}>
                     <p className="font-mono text-xs text-ash">{item.period}</p>
-                    <h3 className="font-display text-h3 mt-2 text-bone">{item.qualification}</h3>
+                    <h3 className="font-display text-h3 mt-2 text-bone">
+                      {item.qualification}
+                    </h3>
                     <p className="mt-1 text-sm text-ash">
                       {item.institution}
                       {item.affiliation ? ` — ${item.affiliation}` : ""}
                     </p>
                     {item.result && (
-                      <p className="mt-2 font-mono text-xs text-ember">{item.result}</p>
+                      <p className="mt-2 font-mono text-xs text-ember">
+                        {item.result}
+                      </p>
                     )}
                   </Reveal>
                 </li>
@@ -331,10 +368,15 @@ export default function AboutPage() {
             />
             <ol className="mt-10">
               {involvement.map((item, i) => (
-                <li key={item.title} className="border-t border-line py-6 last:border-b">
+                <li
+                  key={item.title}
+                  className="border-t border-line py-6 last:border-b"
+                >
                   <Reveal index={i}>
                     <p className="font-mono text-xs text-ash">{item.period}</p>
-                    <h3 className="font-display text-h3 mt-2 text-bone">{item.title}</h3>
+                    <h3 className="font-display text-h3 mt-2 text-bone">
+                      {item.title}
+                    </h3>
                     <p className="mt-1 text-sm text-ash">{item.org}</p>
                     <p className="mt-2 text-sm text-ash-dim">{item.note}</p>
                   </Reveal>

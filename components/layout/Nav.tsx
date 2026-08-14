@@ -10,9 +10,11 @@ export function Nav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const lastY = useRef(0);
 
-  // Hide on scroll down, reveal on scroll up. rAF-gated, writes only a class.
+  // Hide on scroll down, reveal on scroll up; frost the bar once off the top.
+  // rAF-gated, and only ever writes classes.
   useEffect(() => {
     let queued = false;
     const onScroll = () => {
@@ -22,6 +24,7 @@ export function Nav() {
         queued = false;
         const y = window.scrollY;
         setHidden(y > 220 && y > lastY.current);
+        setScrolled(y > 24);
         lastY.current = y;
       });
     };
@@ -53,8 +56,14 @@ export function Nav() {
       </a>
 
       <header
-        className="fixed inset-x-0 top-0 z-50 transition-transform duration-500"
-        style={{ transform: hidden && !open ? "translateY(-110%)" : "translateY(0)" }}
+        className={`fixed inset-x-0 top-0 z-50 transition-[transform,background-color,border-color,backdrop-filter] duration-500 ${
+          scrolled && !open
+            ? "border-b border-line bg-ink/80 backdrop-blur-xl"
+            : "border-b border-transparent"
+        }`}
+        style={{
+          transform: hidden && !open ? "translateY(-110%)" : "translateY(0)",
+        }}
       >
         <div className="shell flex items-center justify-between py-5">
           <Link
@@ -63,12 +72,18 @@ export function Nav() {
             className="group relative z-10 font-mono text-xs tracking-[0.2em] uppercase"
           >
             <span className="text-bone">{profile.name}</span>
-            <span className="ml-2 hidden text-ash sm:inline">— {profile.role}</span>
+            <span className="ml-2 hidden text-ash sm:inline">
+              — {profile.role}
+            </span>
           </Link>
 
-          <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">
+          <nav
+            aria-label="Primary"
+            className="hidden items-center gap-1 md:flex"
+          >
             {nav.map((item) => {
-              const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
+              const active =
+                pathname === item.href || pathname.startsWith(`${item.href}/`);
               return (
                 <Magnetic key={item.href} strength={8}>
                   <Link
@@ -80,7 +95,10 @@ export function Nav() {
                   >
                     {item.label}
                     {active && (
-                      <span className="absolute inset-x-4 -bottom-0.5 h-px bg-ember" aria-hidden="true" />
+                      <span
+                        className="absolute inset-x-4 -bottom-0.5 h-px bg-ember"
+                        aria-hidden="true"
+                      />
                     )}
                   </Link>
                 </Magnetic>
@@ -107,11 +125,15 @@ export function Nav() {
             <span aria-hidden="true" className="relative block h-3 w-6">
               <span
                 className="absolute inset-x-0 top-0 h-px bg-bone transition-transform duration-300"
-                style={{ transform: open ? "translateY(6px) rotate(45deg)" : "none" }}
+                style={{
+                  transform: open ? "translateY(6px) rotate(45deg)" : "none",
+                }}
               />
               <span
                 className="absolute inset-x-0 bottom-0 h-px bg-bone transition-transform duration-300"
-                style={{ transform: open ? "translateY(-6px) rotate(-45deg)" : "none" }}
+                style={{
+                  transform: open ? "translateY(-6px) rotate(-45deg)" : "none",
+                }}
               />
             </span>
           </button>
@@ -124,7 +146,10 @@ export function Nav() {
         hidden={!open}
         className="fixed inset-0 z-40 bg-ink/97 backdrop-blur-xl md:hidden"
       >
-        <nav aria-label="Mobile" className="shell flex h-full flex-col justify-center gap-2">
+        <nav
+          aria-label="Mobile"
+          className="shell flex h-full flex-col justify-center gap-2"
+        >
           {nav.map((item, i) => (
             <Link
               key={item.href}

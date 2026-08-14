@@ -38,7 +38,9 @@ export default async function CaseStudy({ params }: Params) {
   const project = getProject(slug);
   if (!project || !project.featured) notFound();
 
-  const index = projects.filter((p) => p.featured).findIndex((p) => p.slug === slug);
+  const index = projects
+    .filter((p) => p.featured)
+    .findIndex((p) => p.slug === slug);
   const featured = projects.filter((p) => p.featured);
   const next = featured[(index + 1) % featured.length];
 
@@ -70,13 +72,18 @@ export default async function CaseStudy({ params }: Params) {
         />
 
         <Reveal delay={400}>
-          <p className="text-lead mt-8 max-w-3xl text-balance text-bone-2">{project.summary}</p>
+          <p className="text-lead mt-8 max-w-3xl text-balance text-bone-2">
+            {project.summary}
+          </p>
         </Reveal>
 
         {project.status && (
           <Reveal delay={500}>
             <p className="mt-6 inline-flex items-center gap-2.5 rounded-full border border-line px-4 py-1.5 font-mono text-[0.7rem] tracking-[0.08em] text-ash">
-              <span className="inline-block h-1.5 w-1.5 rounded-full bg-ember" aria-hidden="true" />
+              <span
+                className="inline-block h-1.5 w-1.5 rounded-full bg-ember"
+                aria-hidden="true"
+              />
               {project.status}
             </p>
           </Reveal>
@@ -87,7 +94,12 @@ export default async function CaseStudy({ params }: Params) {
       {project.cover && (
         <div className="shell">
           <div style={{ viewTransitionName: `cover-${project.slug}` }}>
-            <ImageSlot slot={project.cover} ratio="16/9" sizes="100vw" priority />
+            <ImageSlot
+              slot={project.cover}
+              ratio="16/9"
+              sizes="100vw"
+              priority
+            />
           </div>
         </div>
       )}
@@ -143,10 +155,16 @@ export default async function CaseStudy({ params }: Params) {
             </Reveal>
             <ol className="max-w-2xl">
               {project.approach.map((step, i) => (
-                <li key={i} className="border-b border-line py-7 first:pt-0 last:border-0">
+                <li
+                  key={i}
+                  className="border-b border-line py-7 first:pt-0 last:border-0"
+                >
                   <Reveal index={i}>
                     <div className="flex gap-6">
-                      <span className="font-mono text-xs text-ember" aria-hidden="true">
+                      <span
+                        className="font-mono text-xs text-ember"
+                        aria-hidden="true"
+                      >
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       <p className="text-bone-2">{step}</p>
@@ -174,7 +192,9 @@ export default async function CaseStudy({ params }: Params) {
                 <Reveal key={metric.label} index={i}>
                   <dt className="sr-only">{metric.label}</dt>
                   <dd>
-                    <p className="font-display text-h2 text-ember">{metric.value}</p>
+                    <p className="font-display text-h2 text-ember">
+                      {metric.value}
+                    </p>
                     <p className="mt-3 font-mono text-[0.7rem] leading-relaxed tracking-[0.1em] text-ash uppercase">
                       {metric.label}
                     </p>
@@ -205,7 +225,11 @@ export default async function CaseStudy({ params }: Params) {
           <div className="shell grid gap-12 md:grid-cols-2">
             {project.gallery.map((slot, i) => (
               <Reveal key={i} index={i}>
-                <ImageSlot slot={slot} ratio="16/10" sizes="(max-width: 768px) 92vw, 44vw" />
+                <ImageSlot
+                  slot={slot}
+                  ratio="16/10"
+                  sizes="(max-width: 768px) 92vw, 44vw"
+                />
               </Reveal>
             ))}
           </div>
@@ -254,7 +278,11 @@ export default async function CaseStudy({ params }: Params) {
       <nav className="rule py-24" aria-label="Next project">
         <div className="shell">
           <p className="eyebrow">Next</p>
-          <Link href={`/work/${next.slug}`} className="group mt-6 block" data-cursor="grow">
+          <Link
+            href={`/work/${next.slug}`}
+            className="group mt-6 block"
+            data-cursor="grow"
+          >
             <h2 className="font-display text-h1 text-bone transition-colors group-hover:text-ember">
               {next.title}
             </h2>

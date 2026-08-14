@@ -50,15 +50,4 @@ export const publications: Publication[] = [
     doi: "https://doi.org/10.59544/vagt5010/icrcct24p103",
     image: "pub-ijatem",
   },
-  {
-    title: "GPU-Accelerated Bone Morphing for Imageless Total Knee Arthroplasty",
-    venue: "MICCAI 2026 workshop track",
-    publisher: "In preparation",
-    date: "2026",
-    authors: ["Navyashree N", "IITM HTIC team"],
-    authorHighlight: "Navyashree N",
-    abstract:
-      "Neural signed distance fields with Gaussian RBF field-space warping, registered against intraoperatively probed points, reconstructing femur and tibia geometry in roughly seven milliseconds with no preoperative CT.",
-    status: "In preparation — not yet peer-reviewed",
-  },
 ];

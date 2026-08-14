@@ -19,7 +19,13 @@ type Props = {
  * surrounding layout are identical either way, so the page never reflows when
  * real photos land.
  */
-export function ImageSlot({ slot, className = "", sizes = "100vw", priority, ratio = "16/10" }: Props) {
+export function ImageSlot({
+  slot,
+  className = "",
+  sizes = "100vw",
+  priority,
+  ratio = "16/10",
+}: Props) {
   const hasImage = Boolean(slot.src);
 
   return (

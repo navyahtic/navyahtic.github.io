@@ -60,10 +60,10 @@ export function TiltPortrait() {
 
   return (
     <div className="relative flex justify-center lg:justify-end">
-      {/* Ember bloom behind her shoulder — the one place the accent gets to be soft. */}
+      {/* Accent bloom behind her shoulder — the one place colour gets to be soft. */}
       <div
         aria-hidden="true"
-        className="absolute top-1/4 left-1/2 h-[26rem] w-[26rem] -translate-x-1/2 rounded-full bg-ember/12 blur-[110px]"
+        className="grad-bg absolute top-1/4 left-1/2 h-[26rem] w-[26rem] -translate-x-1/2 rounded-full opacity-20 blur-[110px]"
       />
       <div
         ref={wrap}

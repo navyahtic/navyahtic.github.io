@@ -17,32 +17,24 @@ const other = projects.filter((p) => !p.featured);
 export default function WorkPage() {
   return (
     <>
-      <header className="shell pt-40 pb-20">
+      <header className="shell relative pt-40 pb-20">
+        <div className="mesh" aria-hidden="true" />
         <Reveal>
-          <p className="eyebrow">Work</p>
+          <p className="eyebrow relative">Work</p>
         </Reveal>
         <SplitText
           as="h1"
           immediate
           delay={100}
           text="Everything worth showing"
-          className="font-display text-h1 mt-6 max-w-4xl text-balance text-bone"
+          className="font-display text-h1 relative mt-6 max-w-4xl text-balance text-bone"
         />
-        <Reveal delay={300}>
-          <p className="text-lead mt-8 max-w-2xl text-ash">
-            Four case studies, written the way I'd explain the work to another engineer — what the
-            problem actually was, what I tried, and what the numbers came out as. Everything else is
-            listed below.
-          </p>
-        </Reveal>
       </header>
 
-      <section className="rule py-24" aria-label="Case studies">
-        <div className="shell grid gap-x-12 gap-y-24 lg:grid-cols-2">
+      <section className="pb-24" aria-label="Case studies">
+        <div className="shell grid gap-10 lg:grid-cols-2">
           {featured.map((project, i) => (
-            <div key={project.slug} className={i % 2 === 1 ? "lg:mt-28" : undefined}>
-              <ProjectCard project={project} index={i} />
-            </div>
+            <ProjectCard key={project.slug} project={project} index={i} />
           ))}
         </div>
       </section>
@@ -64,11 +56,20 @@ export default function WorkPage() {
               <li key={project.slug}>
                 <Reveal index={i}>
                   <div className="grid gap-4 py-8 md:grid-cols-[auto_1fr_auto] md:items-baseline md:gap-10">
-                    <p className="font-mono text-xs text-ash-dim">{project.year}</p>
+                    <p className="font-mono text-xs text-ash-dim">
+                      {project.year}
+                    </p>
                     <div>
-                      <h3 className="font-display text-h3 text-bone">{project.title}</h3>
-                      <p className="mt-2 max-w-2xl text-sm text-ash">{project.summary}</p>
-                      <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1" aria-label="Stack">
+                      <h3 className="font-display text-h3 text-bone">
+                        {project.title}
+                      </h3>
+                      <p className="mt-2 max-w-2xl text-sm text-ash">
+                        {project.summary}
+                      </p>
+                      <ul
+                        className="mt-3 flex flex-wrap gap-x-4 gap-y-1"
+                        aria-label="Stack"
+                      >
                         {project.stack.map((tech) => (
                           <li
                             key={tech}

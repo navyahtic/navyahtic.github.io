@@ -40,7 +40,12 @@ export function Magnetic({ children, strength = 14, className }: Props) {
       el.style.transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0)`;
 
       // Park the loop once we have effectively arrived.
-      if (Math.abs(targetX - x) < 0.05 && Math.abs(targetY - y) < 0.05 && targetX === 0 && targetY === 0) {
+      if (
+        Math.abs(targetX - x) < 0.05 &&
+        Math.abs(targetY - y) < 0.05 &&
+        targetX === 0 &&
+        targetY === 0
+      ) {
         el.style.transform = "";
         running = false;
         return;

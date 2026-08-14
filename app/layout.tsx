@@ -85,7 +85,11 @@ const personSchema = {
   email: profile.email,
   url: profile.siteUrl,
   description: profile.short,
-  address: { "@type": "PostalAddress", addressCountry: "IN", addressLocality: "Chennai" },
+  address: {
+    "@type": "PostalAddress",
+    addressCountry: "IN",
+    addressLocality: "Chennai",
+  },
   sameAs: [profile.links.github, profile.links.linkedin],
   alumniOf: {
     "@type": "CollegeOrUniversity",
@@ -105,9 +109,16 @@ const personSchema = {
   ],
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${inter.variable} ${mono.variable}`}>
+    <html
+      lang="en"
+      className={`${fraunces.variable} ${inter.variable} ${mono.variable}`}
+    >
       <body className="grain antialiased">
         <script
           type="application/ld+json"

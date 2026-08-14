@@ -28,7 +28,8 @@ export const metadata: Metadata = {
 export default function ResumePage() {
   return (
     <>
-      <header className="shell pt-40 pb-16">
+      <header className="shell relative pt-40 pb-16">
+        <div className="mesh" aria-hidden="true" />
         <div className="flex flex-wrap items-end justify-between gap-8">
           <div>
             <Reveal>
@@ -39,7 +40,7 @@ export default function ResumePage() {
               immediate
               delay={100}
               text={profile.name}
-              className="font-display text-h1 mt-6 text-bone"
+              className="font-display text-h1 relative mt-6 text-bone"
             />
             <Reveal delay={300}>
               <p className="mt-4 text-lead text-ash">{profile.role}</p>
@@ -47,7 +48,10 @@ export default function ResumePage() {
             <Reveal delay={380}>
               <p className="mt-2 font-mono text-xs tracking-[0.1em] text-ash-dim">
                 {profile.location} —{" "}
-                <a href={profile.links.email} className="link-draw text-ash hover:text-bone">
+                <a
+                  href={profile.links.email}
+                  className="link-draw text-ash hover:text-bone"
+                >
                   {profile.email}
                 </a>
               </p>
@@ -76,7 +80,9 @@ export default function ResumePage() {
 
       {/* ── Summary ──────────────────────────────────────────── */}
       <Section title="Summary">
-        <p className="max-w-3xl text-lg leading-relaxed text-bone-2">{profile.bio[0]}</p>
+        <p className="max-w-3xl text-lg leading-relaxed text-bone-2">
+          {profile.bio[0]}
+        </p>
       </Section>
 
       {/* ── Experience ───────────────────────────────────────── */}
@@ -97,7 +103,10 @@ export default function ResumePage() {
                 <ul className="mt-4 space-y-2.5">
                   {role.bullets.map((bullet, b) => (
                     <li key={b} className="flex max-w-3xl gap-4 text-bone-2">
-                      <span aria-hidden="true" className="mt-2.5 h-px w-3 shrink-0 bg-ash-dim" />
+                      <span
+                        aria-hidden="true"
+                        className="mt-2.5 h-px w-3 shrink-0 bg-ash-dim"
+                      />
                       <span>{bullet}</span>
                     </li>
                   ))}
@@ -120,7 +129,9 @@ export default function ResumePage() {
                 <p className="mt-2 max-w-3xl text-sm text-ash">
                   {pub.venue} — {pub.publisher}, {pub.date}
                 </p>
-                <p className="mt-1 font-mono text-[0.7rem] text-ash-dim">{pub.status}</p>
+                <p className="mt-1 font-mono text-[0.7rem] text-ash-dim">
+                  {pub.status}
+                </p>
                 {pub.doi && (
                   <a
                     href={pub.doi}
@@ -144,8 +155,12 @@ export default function ResumePage() {
             <li key={project.slug}>
               <Reveal index={Math.min(i, 3)}>
                 <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-                  <h3 className="font-display text-h3 text-bone">{project.title}</h3>
-                  <p className="font-mono text-xs text-ash-dim">{project.year}</p>
+                  <h3 className="font-display text-h3 text-bone">
+                    {project.title}
+                  </h3>
+                  <p className="font-mono text-xs text-ash-dim">
+                    {project.year}
+                  </p>
                 </div>
                 <p className="mt-2 max-w-3xl text-bone-2">{project.summary}</p>
                 <p className="mt-2 font-mono text-[0.7rem] tracking-[0.08em] text-ash-dim uppercase">
@@ -178,15 +193,23 @@ export default function ResumePage() {
             <li key={item.qualification}>
               <Reveal index={i}>
                 <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-                  <h3 className="font-display text-h3 text-bone">{item.qualification}</h3>
-                  <p className="font-mono text-xs text-ash-dim">{item.period}</p>
+                  <h3 className="font-display text-h3 text-bone">
+                    {item.qualification}
+                  </h3>
+                  <p className="font-mono text-xs text-ash-dim">
+                    {item.period}
+                  </p>
                 </div>
                 <p className="mt-1 text-ash">
                   {item.institution}
                   {item.affiliation ? ` — ${item.affiliation}` : ""}
                   {item.location ? `, ${item.location}` : ""}
                 </p>
-                {item.result && <p className="mt-1 font-mono text-xs text-ember">{item.result}</p>}
+                {item.result && (
+                  <p className="mt-1 font-mono text-xs text-ember">
+                    {item.result}
+                  </p>
+                )}
               </Reveal>
             </li>
           ))}
@@ -227,7 +250,8 @@ export default function ResumePage() {
                 <div className="flex flex-wrap items-baseline gap-x-4">
                   <p className="font-mono text-xs text-ash-dim">{award.year}</p>
                   <p className="text-bone-2">
-                    <span className="text-bone">{award.title}</span> — {award.detail}
+                    <span className="text-bone">{award.title}</span> —{" "}
+                    {award.detail}
                     {award.issuer ? ` ${award.issuer}` : ""}
                   </p>
                 </div>
@@ -262,7 +286,9 @@ export default function ResumePage() {
                   <p className="text-bone-2">
                     <span className="text-bone">{item.title}</span> — {item.org}
                   </p>
-                  <p className="font-mono text-xs text-ash-dim">{item.period}</p>
+                  <p className="font-mono text-xs text-ash-dim">
+                    {item.period}
+                  </p>
                 </div>
               </Reveal>
             </li>
@@ -282,9 +308,13 @@ function ActivityList({ items }: { items: Activity[] }) {
             <div className="flex flex-wrap items-baseline justify-between gap-x-6">
               <p className="max-w-2xl text-bone-2">
                 <span className="text-bone">{item.title}</span> — {item.org}
-                {item.highlight && <span className="text-ember"> · {item.highlight}</span>}
+                {item.highlight && (
+                  <span className="text-ember"> · {item.highlight}</span>
+                )}
               </p>
-              <p className="font-mono text-xs whitespace-nowrap text-ash-dim">{item.date}</p>
+              <p className="font-mono text-xs whitespace-nowrap text-ash-dim">
+                {item.date}
+              </p>
             </div>
           </Reveal>
         </li>
@@ -293,7 +323,13 @@ function ActivityList({ items }: { items: Activity[] }) {
   );
 }
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+function Section({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
   return (
     <section className="rule py-16" aria-label={title}>
       <div className="shell grid gap-8 lg:grid-cols-[0.22fr_0.78fr]">

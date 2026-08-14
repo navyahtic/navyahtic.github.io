@@ -27,7 +27,8 @@ const counts = [
 export default function CredentialsPage() {
   return (
     <>
-      <header className="shell pt-40 pb-16">
+      <header className="shell relative pt-40 pb-16">
+        <div className="mesh" aria-hidden="true" />
         <Reveal>
           <p className="eyebrow">Credentials</p>
         </Reveal>
@@ -36,13 +37,13 @@ export default function CredentialsPage() {
           immediate
           delay={100}
           text="Everything, with receipts."
-          className="font-display text-h1 mt-6 max-w-4xl text-balance text-bone"
+          className="font-display text-h1 relative mt-6 max-w-4xl text-balance text-bone"
         />
         <Reveal delay={300}>
           <p className="text-lead mt-8 max-w-2xl text-ash">
-            Papers, certifications, competitions and community work. Every card links to the
-            issuer's verification page where one exists, and shows the certificate itself where it
-            does not.
+            Papers, certifications, competitions and community work. Every card
+            links to the issuer's verification page where one exists, and shows
+            the certificate itself where it does not.
           </p>
         </Reveal>
 
@@ -51,7 +52,7 @@ export default function CredentialsPage() {
             <Reveal key={c.label} index={i}>
               <dt className="sr-only">{c.label}</dt>
               <dd>
-                <p className="font-display text-h2 text-bone">{c.value}</p>
+                <p className="font-display text-h2 grad-text">{c.value}</p>
                 <p className="mt-1 font-mono text-[0.7rem] tracking-[0.12em] text-ash uppercase">
                   {c.label}
                 </p>
@@ -62,7 +63,10 @@ export default function CredentialsPage() {
       </header>
 
       {/* ── Publications ─────────────────────────────────────── */}
-      <section className="rule py-24" aria-labelledby="pubs-heading">
+      <section
+        className="border-y border-line bg-ink-raised py-24"
+        aria-labelledby="pubs-heading"
+      >
         <div className="shell">
           <Reveal>
             <p className="eyebrow">Research</p>
@@ -74,11 +78,11 @@ export default function CredentialsPage() {
             className="font-display text-h2 mt-4 text-bone"
           />
 
-          <ol className="mt-16 space-y-20">
+          <ol className="mt-16 space-y-10">
             {publications.map((pub, i) => (
               <li key={pub.title}>
                 <Reveal>
-                  <div className="grid gap-10 lg:grid-cols-[0.62fr_0.38fr]">
+                  <div className="card grid gap-10 p-8 lg:grid-cols-[0.62fr_0.38fr] lg:p-10">
                     <div>
                       <p className="font-mono text-[0.7rem] tracking-[0.14em] text-ember uppercase">
                         {pub.publisher} — {pub.date}
@@ -88,12 +92,20 @@ export default function CredentialsPage() {
                       </h3>
                       <p className="mt-3 text-sm text-ash">{pub.venue}</p>
 
-                      <p className="mt-5 max-w-2xl text-bone-2">{pub.abstract}</p>
+                      <p className="mt-5 max-w-2xl text-bone-2">
+                        {pub.abstract}
+                      </p>
 
                       <p className="mt-6 max-w-2xl text-sm text-ash-dim">
                         {pub.authors.map((author, a) => (
                           <span key={author}>
-                            <span className={author === pub.authorHighlight ? "text-bone" : ""}>
+                            <span
+                              className={
+                                author === pub.authorHighlight
+                                  ? "text-bone"
+                                  : ""
+                              }
+                            >
                               {author}
                             </span>
                             {a < pub.authors.length - 1 && ", "}
@@ -162,38 +174,44 @@ export default function CredentialsPage() {
             className="font-display text-h2 mt-4 text-bone"
           />
 
-          <ul className="mt-16 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {certifications.map((cert, i) => (
-              <li key={cert.name}>
+              <li key={cert.name} className="card-hover">
                 <Reveal index={i % 3}>
                   <a
                     href={cert.credentialUrl || cert.issuerUrl}
                     target="_blank"
                     rel="noreferrer noopener"
-                    className="group flex h-full flex-col"
+                    className="card group flex h-full flex-col overflow-hidden"
                   >
                     <GalleryImage
                       id={cert.image}
                       alt={`${cert.name} — ${cert.issuer}`}
                       ratio="4/3"
                       sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 30vw"
-                      className="transition-opacity duration-500 group-hover:opacity-90"
+                      className="rounded-none border-0 border-b border-line"
                     />
-                    <p className="mt-5 font-mono text-[0.65rem] tracking-[0.14em] text-ember uppercase">
-                      {cert.issuer}
-                    </p>
-                    <h3 className="font-display text-h3 mt-2 text-bone transition-colors group-hover:text-ember">
-                      {cert.name}
-                    </h3>
-                    {cert.detail && <p className="mt-2 text-sm text-ash">{cert.detail}</p>}
-                    <p className="mt-3 flex items-center gap-3 font-mono text-[0.68rem] text-ash-dim">
-                      <span>{cert.issued}</span>
-                      {cert.credentialUrl ? (
-                        <span className="text-ash">Verify ↗</span>
-                      ) : cert.credentialId ? (
-                        <span className="truncate">ID {cert.credentialId}</span>
-                      ) : null}
-                    </p>
+                    <div className="flex flex-1 flex-col p-6">
+                      <p className="font-mono text-[0.65rem] tracking-[0.14em] text-ember uppercase">
+                        {cert.issuer}
+                      </p>
+                      <h3 className="font-display text-h3 mt-2 text-bone transition-colors group-hover:text-ember">
+                        {cert.name}
+                      </h3>
+                      {cert.detail && (
+                        <p className="mt-2 text-sm text-ash">{cert.detail}</p>
+                      )}
+                      <p className="mt-auto flex items-center gap-3 pt-4 font-mono text-[0.68rem] text-ash-dim">
+                        <span>{cert.issued}</span>
+                        {cert.credentialUrl ? (
+                          <span className="text-ash">Verify ↗</span>
+                        ) : cert.credentialId ? (
+                          <span className="truncate">
+                            ID {cert.credentialId}
+                          </span>
+                        ) : null}
+                      </p>
+                    </div>
                   </a>
                 </Reveal>
               </li>
@@ -215,27 +233,38 @@ export default function CredentialsPage() {
             className="font-display text-h2 mt-4 text-bone"
           />
 
-          <div className="mt-16 grid gap-x-10 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {awards.map((award, i) => (
-              <Reveal key={award.title} index={i % 3}>
-                <article className="flex h-full flex-col">
+              <Reveal
+                key={award.title}
+                index={i % 3}
+                className="card-hover h-full"
+              >
+                <article className="card flex h-full flex-col overflow-hidden">
                   <GalleryImage
                     id={award.image}
                     alt={award.title}
                     ratio="4/3"
-                    fit={award.image === "award-icrcct-stage" ? "cover" : "contain"}
+                    fit={
+                      award.image === "award-icrcct-stage" ? "cover" : "contain"
+                    }
                     sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 30vw"
+                    className="rounded-none border-0 border-b border-line"
                   />
-                  <p className="mt-5 font-mono text-[0.65rem] tracking-[0.14em] text-ember uppercase">
-                    {award.year}
-                  </p>
-                  <h3 className="font-display text-h3 mt-2 text-bone">{award.title}</h3>
-                  <p className="mt-2 text-sm text-ash">{award.detail}</p>
-                  {award.issuer && (
-                    <p className="mt-2 font-mono text-[0.68rem] leading-relaxed text-ash-dim">
-                      {award.issuer}
+                  <div className="flex flex-1 flex-col p-6">
+                    <p className="font-mono text-[0.65rem] tracking-[0.14em] text-ember uppercase">
+                      {award.year}
                     </p>
-                  )}
+                    <h3 className="font-display text-h3 mt-2 text-bone">
+                      {award.title}
+                    </h3>
+                    <p className="mt-2 text-sm text-ash">{award.detail}</p>
+                    {award.issuer && (
+                      <p className="mt-2 font-mono text-[0.68rem] leading-relaxed text-ash-dim">
+                        {award.issuer}
+                      </p>
+                    )}
+                  </div>
                 </article>
               </Reveal>
             ))}
@@ -293,14 +322,14 @@ function ActivitySection({
         />
 
         <ul
-          className={`mt-16 grid gap-x-8 gap-y-12 sm:grid-cols-2 ${
+          className={`mt-16 grid gap-6 sm:grid-cols-2 ${
             compact ? "lg:grid-cols-4" : "lg:grid-cols-3"
           }`}
         >
           {items.map((item, i) => (
-            <li key={item.title}>
+            <li key={item.title} className="card-hover">
               <Reveal index={i % 3}>
-                <article className="flex h-full flex-col">
+                <article className="card flex h-full flex-col overflow-hidden">
                   <GalleryImage
                     id={item.image}
                     alt={`${item.title} — ${item.org}`}
@@ -310,20 +339,27 @@ function ActivitySection({
                         ? "(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 23vw"
                         : "(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 30vw"
                     }
+                    className="rounded-none border-0 border-b border-line"
                   />
-                  {item.highlight && (
-                    <p className="mt-5 font-mono text-[0.65rem] tracking-[0.14em] text-ember uppercase">
-                      {item.highlight}
+                  <div className="flex flex-1 flex-col p-6">
+                    {item.highlight && (
+                      <p className="font-mono text-[0.65rem] tracking-[0.14em] text-ember uppercase">
+                        {item.highlight}
+                      </p>
+                    )}
+                    <h3
+                      className={`font-display text-h3 text-bone ${item.highlight ? "mt-2" : ""}`}
+                    >
+                      {item.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-ash">
+                      {item.org}
                     </p>
-                  )}
-                  <h3
-                    className={`font-display text-h3 text-bone ${item.highlight ? "mt-2" : "mt-5"}`}
-                  >
-                    {item.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-ash">{item.org}</p>
-                  <p className="mt-3 text-sm text-bone-2">{item.detail}</p>
-                  <p className="mt-3 font-mono text-[0.68rem] text-ash-dim">{item.date}</p>
+                    <p className="mt-3 text-sm text-bone-2">{item.detail}</p>
+                    <p className="mt-auto pt-4 font-mono text-[0.68rem] text-ash-dim">
+                      {item.date}
+                    </p>
+                  </div>
                 </article>
               </Reveal>
             </li>

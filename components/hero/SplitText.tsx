@@ -39,7 +39,9 @@ export function SplitText({
 
     if (immediate) {
       // Next frame, so the initial transform is painted before it animates.
-      const id = requestAnimationFrame(() => el.setAttribute("data-revealed", "true"));
+      const id = requestAnimationFrame(() =>
+        el.setAttribute("data-revealed", "true"),
+      );
       return () => cancelAnimationFrame(id);
     }
 
@@ -60,7 +62,13 @@ export function SplitText({
   let charIndex = 0;
 
   return (
-    <Tag ref={ref as never} id={id} className={className} aria-label={text} data-revealed="false">
+    <Tag
+      ref={ref as never}
+      id={id}
+      className={className}
+      aria-label={text}
+      data-revealed="false"
+    >
       {words.map((word, w) => (
         <span key={w} className="inline-block whitespace-nowrap">
           {[...word].map((char) => {
@@ -70,7 +78,11 @@ export function SplitText({
                 key={i}
                 aria-hidden="true"
                 className="char-mask"
-                style={{ "--char-delay": `${delay + i * CHAR_STEP}ms` } as React.CSSProperties}
+                style={
+                  {
+                    "--char-delay": `${delay + i * CHAR_STEP}ms`,
+                  } as React.CSSProperties
+                }
               >
                 <span>{char}</span>
               </span>

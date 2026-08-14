@@ -31,20 +31,24 @@ export function ProjectCard({ project, index, linked = true }: Props) {
     if (!("startViewTransition" in document)) return;
 
     e.preventDefault();
-    (document as Document & {
-      startViewTransition: (cb: () => void) => void;
-    }).startViewTransition(() => {
+    (
+      document as Document & {
+        startViewTransition: (cb: () => void) => void;
+      }
+    ).startViewTransition(() => {
       router.push(`/work/${project.slug}`);
     });
   };
 
   const body = (
-    <article className="group relative">
+    <article className="card group relative flex h-full flex-col overflow-hidden">
       <div
-        className="relative overflow-hidden rounded-sm"
-        style={{ viewTransitionName: linked ? `cover-${project.slug}` : undefined }}
+        className="relative overflow-hidden"
+        style={{
+          viewTransitionName: linked ? `cover-${project.slug}` : undefined,
+        }}
       >
-        <div className="transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]">
+        <div className="transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]">
           <ImageSlot
             slot={
               project.cover ?? {
@@ -57,55 +61,64 @@ export function ProjectCard({ project, index, linked = true }: Props) {
             sizes="(max-width: 768px) 92vw, (max-width: 1280px) 46vw, 40vw"
           />
         </div>
-      </div>
 
-      <div className="mt-6 flex items-baseline justify-between gap-4">
-        <div className="min-w-0">
-          <p className="eyebrow">
-            {num} — {project.kicker}
-          </p>
-          <h3 className="font-display text-h2 mt-2 text-bone transition-colors group-hover:text-ember">
-            {project.title}
-          </h3>
-        </div>
-        <span className="font-mono text-xs text-ash-dim shrink-0">{project.year}</span>
-      </div>
-
-      <p className="mt-4 max-w-xl text-ash">{project.summary}</p>
-
-      <ul className="mt-5 flex flex-wrap gap-x-4 gap-y-2" aria-label="Stack">
-        {project.stack.slice(0, 5).map((tech) => (
-          <li
-            key={tech}
-            className="font-mono text-[0.7rem] tracking-[0.1em] text-ash-dim uppercase"
-          >
-            {tech}
-          </li>
-        ))}
-      </ul>
-
-      {linked && (
-        <span className="mt-6 inline-flex items-center gap-2 font-mono text-xs tracking-[0.16em] text-bone uppercase">
-          Read the case study
-          <span
-            aria-hidden="true"
-            className="text-ember transition-transform duration-500 group-hover:translate-x-1.5"
-          >
-            →
-          </span>
+        {/* Index numeral, bottom-right of the image. Outlined until hover. */}
+        <span
+          aria-hidden="true"
+          className="numeral pointer-events-none absolute right-5 -bottom-2 select-none"
+        >
+          {num}
         </span>
-      )}
+      </div>
+
+      <div className="flex flex-1 flex-col p-7">
+        <div className="flex items-center justify-between gap-4">
+          <p className="chip border-ember/25 text-ember">{project.kicker}</p>
+          <span className="shrink-0 font-mono text-xs text-ash-dim">
+            {project.year}
+          </span>
+        </div>
+
+        <h3 className="font-display text-h2 mt-5 text-bone transition-colors group-hover:text-ember">
+          {project.title}
+        </h3>
+
+        <p className="mt-4 flex-1 text-bone-2">{project.summary}</p>
+
+        <ul className="mt-6 flex flex-wrap gap-2" aria-label="Stack">
+          {project.stack.slice(0, 5).map((tech) => (
+            <li
+              key={tech}
+              className="rounded-md bg-ink-sunk px-2.5 py-1 font-mono text-[0.65rem] tracking-[0.08em] text-ash uppercase"
+            >
+              {tech}
+            </li>
+          ))}
+        </ul>
+
+        {linked && (
+          <span className="mt-7 inline-flex items-center gap-2 font-mono text-xs tracking-[0.16em] text-bone uppercase">
+            Read the case study
+            <span
+              aria-hidden="true"
+              className="text-ember transition-transform duration-500 group-hover:translate-x-1.5"
+            >
+              →
+            </span>
+          </span>
+        )}
+      </div>
     </article>
   );
 
   return (
-    <Reveal index={index % 2}>
+    <Reveal index={index % 2} className="card-hover h-full">
       {linked ? (
         <Link
           href={`/work/${project.slug}`}
           onClick={onClick}
           data-cursor="grow"
-          className="block focus-visible:outline-offset-8"
+          className="block h-full focus-visible:outline-offset-8"
         >
           {body}
         </Link>

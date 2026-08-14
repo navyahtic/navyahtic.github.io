@@ -8,22 +8,25 @@
    is probably wrong.
    ───────────────────────────────────────────────────────────── */
 @theme {
-  /* `ink` is the page ground, `bone` is the type. Keeping those two names
-     stable means the whole site re-themes from this block alone. */
+  /* Pinbin's neutral base — white, near-black, and a grey ramp. `ink` is the
+     page ground and `bone` is the type, so the whole site re-themes from here.
+     Pinbin on its own is pure greyscale, which reads flat; the depth comes
+     from the elevation and gradient tokens below, not from loud colour. */
   --color-ink: #ffffff;
-  --color-ink-raised: #f7f7f5;
-  --color-ink-sunk: #efeeec;
+  --color-ink-raised: #fafafa;
+  --color-ink-sunk: #f2f2f0;
 
-  --color-bone: #1a1a1a;
-  --color-bone-2: #3d3d3d;
-  --color-ash: #6e6e6e;
-  --color-ash-dim: #9a9a9a;
+  --color-bone: #111111;
+  --color-bone-2: #444444;
+  --color-ash: #858585;
+  --color-ash-dim: #9e9e9e;
 
-  --color-ember: #dc4437;
-  --color-ember-dim: #a8291e;
+  --color-ember: #4f2fe0;
+  --color-ember-dim: #3a1fb8;
+  --color-violet: #8b3fe8;
 
-  --color-line: rgba(0, 0, 0, 0.1);
-  --color-line-strong: rgba(0, 0, 0, 0.24);
+  --color-line: #eaeaea;
+  --color-line-strong: #cccccc;
 
   --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
@@ -59,6 +62,14 @@
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+
+  /* Elevation. On a white page, shadow is the only thing that separates a
+     card from the ground — so it does the work colour would do elsewhere. */
+  --shadow-card: 0 1px 2px rgba(17, 17, 17, 0.04), 0 8px 24px -6px rgba(17, 17, 17, 0.08);
+  --shadow-lift:
+    0 2px 4px rgba(17, 17, 17, 0.05), 0 24px 48px -12px rgba(17, 17, 17, 0.16),
+    0 0 0 1px rgba(17, 17, 17, 0.03);
+  --shadow-deep: 0 32px 80px -24px rgba(31, 15, 90, 0.28);
 }
 
 /* ── Base ─────────────────────────────────────────────────── */
@@ -133,6 +144,122 @@ body {
 
 .rule {
   border-top: 1px solid var(--color-line);
+}
+
+/* ── Depth and colour, without a loud palette ─────────────── */
+
+/* Type that carries the accent gradient. Used sparingly — one per viewport. */
+.grad-text {
+  background: linear-gradient(115deg, var(--color-ember) 0%, var(--color-violet) 55%, #c13ba8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.grad-bg {
+  background: linear-gradient(115deg, var(--color-ember) 0%, var(--color-violet) 100%);
+}
+
+/* Soft colour wash behind the hero — the one place colour goes big. */
+.mesh {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.mesh::before,
+.mesh::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.5;
+}
+.mesh::before {
+  width: 46rem;
+  height: 46rem;
+  top: -16rem;
+  right: -12rem;
+  background: radial-gradient(circle, rgba(139, 63, 232, 0.3), transparent 68%);
+}
+.mesh::after {
+  width: 38rem;
+  height: 38rem;
+  bottom: -14rem;
+  left: -10rem;
+  background: radial-gradient(circle, rgba(79, 47, 224, 0.24), transparent 68%);
+}
+
+/* Card surface: the workhorse. Lifts and deepens its shadow on hover. */
+.card {
+  background: var(--color-ink);
+  border: 1px solid var(--color-line);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-card);
+  transition:
+    transform 0.5s var(--ease-out-expo),
+    box-shadow 0.5s var(--ease-out-expo),
+    border-color 0.5s var(--ease-out-expo);
+}
+.card-hover:hover .card,
+a:focus-visible .card {
+  transform: translate3d(0, -6px, 0);
+  box-shadow: var(--shadow-lift);
+  border-color: transparent;
+}
+
+/* Small all-caps pill used for categories and status. */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  padding: 0.4rem 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-ash);
+  background: var(--color-ink);
+}
+
+/* Oversized index numeral behind a card's corner. */
+.numeral {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 9vw, 8rem);
+  line-height: 0.8;
+  letter-spacing: -0.05em;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--color-line-strong);
+  transition: -webkit-text-stroke-color 0.6s var(--ease-out-expo);
+}
+.card-hover:hover .numeral {
+  -webkit-text-stroke-color: var(--color-ember);
+}
+
+/* ── Marquee ──────────────────────────────────────────────── */
+
+.marquee {
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+  gap: 0;
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.marquee__track {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 3rem;
+  padding-right: 3rem;
+  min-width: 100%;
+  animation: marquee-scroll 38s linear infinite;
+}
+@keyframes marquee-scroll {
+  to {
+    transform: translate3d(-100%, 0, 0);
+  }
 }
 
 /* Fine grain, fixed to the viewport so it reads as film on the whole page
@@ -267,6 +394,12 @@ body {
   }
   .grain::after {
     animation: none;
+  }
+  .marquee__track {
+    animation: none;
+  }
+  .card {
+    transition: none;
   }
   ::view-transition-group(*),
   ::view-transition-old(*),

@@ -55,7 +55,11 @@ export function Reveal({
       ref={ref}
       data-reveal=""
       className={className}
-      style={{ "--reveal-delay": `${delay ?? index * ITEM_STEP}ms` } as React.CSSProperties}
+      style={
+        {
+          "--reveal-delay": `${delay ?? index * ITEM_STEP}ms`,
+        } as React.CSSProperties
+      }
     >
       {children}
     </Tag>
