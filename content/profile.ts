@@ -32,7 +32,7 @@ export const profile = {
   resumeFile: "/Navyashree-N-Resume.pdf",
 
   /** Drives canonical tags, OG URLs, and the sitemap. Change it if you move to a custom domain. */
-  siteUrl: "https://navyansgr.github.io",
+  siteUrl: "https://navyahtic.github.io",
 } as const;
 
 export const nav = [

@@ -1,6 +1,6 @@
 # Navyashree N — Portfolio
 
-Live at **https://navyansgr.github.io**
+Live at **https://navyahtic.github.io**
 
 Next.js 15 App Router, TypeScript, Tailwind v4, Lenis smooth scroll, raw WebGL2 for the hero.
 Exported as static HTML and hosted free on GitHub Pages — no server, no bill, no cold starts.
