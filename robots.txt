@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://navyahtic.github.io/sitemap.xml

@@ -142,5 +142,73 @@ for (const d of documents) {
 }
 console.log(`${documents.length} certificate scans processed`);
 
+/* ── Social share card ──────────────────────────────────────
+   1200×630 is what LinkedIn, WhatsApp, X and Slack all crop to. A portrait
+   image gets mangled in that box, so the preview gets its own landscape
+   card with the photo inset on the right. */
+const shareCard = `
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630">
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FFDB70"/>
+      <stop offset="100%" stop-color="#FFBC60"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#1E1E1F"/>
+  <rect width="1200" height="6" fill="url(#gold)"/>
+  <circle cx="1150" cy="600" r="220" fill="#FFDB70" fill-opacity="0.05"/>
+
+  <text x="70" y="150" font-family="Poppins, Helvetica, Arial, sans-serif" font-size="24"
+        font-weight="500" fill="#FFDB70" letter-spacing="4">RESEARCH ENGINEER</text>
+
+  <text x="70" y="255" font-family="Poppins, Helvetica, Arial, sans-serif" font-size="76"
+        font-weight="600" fill="#FAFAFA">Navyashree N</text>
+
+  <text x="70" y="320" font-family="Poppins, Helvetica, Arial, sans-serif" font-size="27"
+        fill="#D6D6D6">Medtech at IIT Madras HTIC · ML &amp; GPU systems</text>
+
+  <rect x="70" y="392" width="360" height="2" fill="#383838"/>
+
+  <text x="70" y="460" font-family="Poppins, Helvetica, Arial, sans-serif" font-size="42"
+        font-weight="600" fill="#FFDB70">2</text>
+  <text x="70" y="495" font-family="Poppins, Helvetica, Arial, sans-serif" font-size="19"
+        fill="#9E9E9E">Papers published</text>
+
+  <text x="250" y="460" font-family="Poppins, Helvetica, Arial, sans-serif" font-size="42"
+        font-weight="600" fill="#FFDB70">17</text>
+  <text x="250" y="495" font-family="Poppins, Helvetica, Arial, sans-serif" font-size="19"
+        fill="#9E9E9E">Certifications</text>
+
+  <text x="440" y="460" font-family="Poppins, Helvetica, Arial, sans-serif" font-size="42"
+        font-weight="600" fill="#FFDB70">9+</text>
+  <text x="440" y="495" font-family="Poppins, Helvetica, Arial, sans-serif" font-size="19"
+        fill="#9E9E9E">CGPA</text>
+
+  <text x="70" y="575" font-family="Poppins, Helvetica, Arial, sans-serif" font-size="21"
+        fill="#6E6E6E">navyahtic.github.io</text>
+</svg>`;
+
+const faceSize = 340;
+const face = await sharp(PORTRAIT)
+  .resize(faceSize, faceSize, { fit: "cover", position: "top" })
+  .composite([
+    {
+      // Round the inset with an SVG mask rather than a CSS-style radius.
+      input: Buffer.from(
+        `<svg width="${faceSize}" height="${faceSize}"><rect width="${faceSize}" height="${faceSize}" rx="24" ry="24"/></svg>`,
+      ),
+      blend: "dest-in",
+    },
+  ])
+  .png()
+  .toBuffer();
+
+await sharp(Buffer.from(shareCard))
+  .composite([{ input: face, left: 790, top: 145 }])
+  .jpeg({ quality: 90, mozjpeg: true })
+  .toFile(`${OUT}/share-card.jpg`);
+
+console.log("share-card.jpg (1200×630) written");
+
 const files = await fs.readdir(OUT);
 console.log(`${covers.length} covers + avatar + portrait written. ${files.length} files in ${OUT}`);
