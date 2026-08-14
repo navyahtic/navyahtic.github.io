@@ -112,11 +112,30 @@ console.log(`${photos.length} event photos processed`);
 const documents = [
   { src: "nmms.png", out: "gallery/award-nmms.webp" },
   { src: "oracle.png", out: "gallery/cert-oracle.webp" },
+
+  // Cleaner scan than the earlier copy — overwrites it.
+  { src: "network security.jpg", out: "gallery/cert-palo-network.webp" },
+
+  // Departmental announcement of the SAP HackFest top-three teams.
+  { src: "sap.jpg", out: "gallery/comp-sap-hackfest.webp" },
+
+  // Selection email for Open Source Connect India.
+  { src: "opensource.jpg", out: "gallery/vol-opensource.webp" },
+
+  // "Meet our mentor" post from Girls Leading Tech. Screenshotted with the
+  // LinkedIn chrome above it, so the graphic is cut out — the red banner
+  // begins at row 118 of 786.
+  {
+    src: "mentor.png",
+    out: "gallery/vol-mentor.webp",
+    crop: { left: 0, top: 118, width: 560, height: 668 },
+  },
 ];
 
 for (const d of documents) {
-  await sharp(`${PHOTOS}/${d.src}`)
-    .rotate()
+  let img = sharp(`${PHOTOS}/${d.src}`).rotate();
+  if (d.crop) img = img.extract(d.crop);
+  await img
     .resize({ width: 1400, withoutEnlargement: true })
     .webp({ quality: 82, effort: 6 })
     .toFile(`${OUT}/${d.out}`);
