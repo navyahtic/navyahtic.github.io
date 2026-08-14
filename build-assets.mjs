@@ -63,11 +63,48 @@ await sharp(PORTRAIT)
   .png()
   .toFile(`${OUT}/avatar.png`);
 
-// Larger portrait for the About page.
+// Larger studio portrait, kept as a fallback.
 await sharp(PORTRAIT)
   .resize(700, 875, { fit: "cover", position: "top" })
   .jpeg({ quality: 88, mozjpeg: true })
   .toFile(`${OUT}/portrait.jpg`);
+
+/* ── Event photography ──────────────────────────────────────
+   Straight from O:/acheivementsnavya. `crop` is applied before the
+   resize, for shots that arrive as phone screenshots with letterbox
+   bars around the actual photo. */
+const PHOTOS = "O:/acheivementsnavya";
+
+const photos = [
+  // Navyashree speaking at Google Cloud Agentic AI Day — the About portrait.
+  { src: "aboutme.jpg", out: "about-photo.jpg", w: 900, h: 1150 },
+
+  // Receiving Best Outgoing Student on stage at AMC.
+  { src: "beststudent.jpg", out: "award-best-student.jpg", w: 1200, h: 900 },
+
+  // The congratulations poster for the same award.
+  { src: "1000210979.jpg", out: "award-best-student-poster.jpg", w: 1400, h: 850 },
+
+  // Cardano Hackathon Asia grand finale. Arrived as a phone screenshot, so the
+  // photo band is cut out first — detected at rows 846–1565 of 2412.
+  {
+    src: "1000095839.jpg",
+    out: "vol-cardano.jpg",
+    crop: { left: 0, top: 846, width: 1080, height: 719 },
+    w: 1080,
+    h: 719,
+  },
+];
+
+for (const p of photos) {
+  let img = sharp(`${PHOTOS}/${p.src}`).rotate();
+  if (p.crop) img = img.extract(p.crop);
+  await img
+    .resize(p.w, p.h, { fit: "cover" })
+    .jpeg({ quality: 86, mozjpeg: true })
+    .toFile(`${OUT}/${p.out}`);
+}
+console.log(`${photos.length} event photos processed`);
 
 const files = await fs.readdir(OUT);
 console.log(`${covers.length} covers + avatar + portrait written. ${files.length} files in ${OUT}`);

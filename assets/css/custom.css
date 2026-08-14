@@ -41,7 +41,10 @@
 
 /* ── About hero ───────────────────────────────────────────── */
 
+/* flow-root contains the floated portrait, so the stats below never wrap
+   around it. */
 .about-hero {
+  display: flow-root;
   margin-bottom: 30px;
 }
 
@@ -49,27 +52,25 @@
   position: relative;
   float: none;
   width: 100%;
-  max-width: 260px;
-  margin: 0 auto 24px;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: var(--shadow-4);
-  border: 1px solid var(--jet);
+  max-width: 180px;
+  margin: 0 auto 20px;
 }
 
 .about-portrait img {
   display: block;
   width: 100%;
   height: auto;
+  border-radius: 14px;
+  border: 1px solid var(--jet);
+  box-shadow: var(--shadow-4);
 }
 
-/* Warm the photo toward the theme's gold rather than leaving it neutral. */
-.about-portrait::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(160deg, hsla(45, 100%, 72%, 0.12), transparent 55%);
-  pointer-events: none;
+.about-portrait figcaption {
+  margin-top: 8px;
+  color: var(--light-gray-70);
+  font-size: var(--fs-8);
+  line-height: 1.4;
+  text-align: center;
 }
 
 .about-text strong {
@@ -266,13 +267,20 @@
   transform: translateY(-4px);
 }
 
+/* Certificate scans are documents — contain them, so nothing is cropped away. */
 .cred-card .blog-banner-box img {
   object-fit: contain;
   background: var(--eerie-black-2);
   padding: 6px;
 }
 
-/* Award photos are photographs, not documents — let them fill. */
+/* Photographs fill their frame. Everything under /gallery/ is a scan;
+   the .jpg files in /images/ are event photography. */
+.cred-card .blog-banner-box img[src$=".jpg"] {
+  object-fit: cover;
+  padding: 0;
+}
+
 .cred-card .blog-banner-box img[src*="award-icrcct-stage"] {
   object-fit: cover;
   padding: 0;
@@ -320,22 +328,37 @@
   color: var(--smoky-black);
 }
 
-/* Certificate thumbnail. Contained, not cropped — a cropped certificate
-   loses the part that proves anything. */
+/* Certificate thumbnail — a small proof chip beside the text, not a banner.
+   Contained rather than cropped, since a cropped certificate loses the part
+   that proves anything. */
+.cert-card {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  grid-template-rows: auto auto auto;
+  column-gap: 14px;
+  align-items: start;
+}
+
 .cert-thumb {
-  display: block;
-  margin: -4px -4px 10px;
-  border-radius: 10px;
+  grid-row: 1 / 4;
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
   overflow: hidden;
   background: var(--eerie-black-2);
-  aspect-ratio: 4 / 3;
+  border: 1px solid var(--jet);
 }
 
 .cert-thumb img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  padding: 5px;
+  padding: 3px;
+}
+
+/* Cards with no scan let the text run the full width. */
+.cert-card:not(:has(.cert-thumb)) {
+  grid-template-columns: 1fr;
 }
 
 .cert-issuer {
@@ -357,8 +380,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-top: auto;
-  padding-top: 8px;
+  padding-top: 6px;
   color: var(--light-gray-70);
   font-size: var(--fs-8);
 }
@@ -761,8 +783,12 @@
 
   .about-portrait {
     float: left;
-    max-width: 190px;
-    margin: 0 24px 14px 0;
+    max-width: 165px;
+    margin: 4px 22px 12px 0;
+  }
+
+  .about-portrait figcaption {
+    text-align: left;
   }
 
   .cred-row-side {
