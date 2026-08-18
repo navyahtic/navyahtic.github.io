@@ -108,6 +108,117 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "warpsmith",
+    title: "warpsmith",
+    kicker: "Systems · GPU performance",
+    year: "2026",
+    featured: true,
+    status: "Shipped — public, CI green across four GPU architectures",
+    summary:
+      "Thirty-four CUDA kernels written from scratch and taken past NVIDIA's own library — one optimization at a time, with every stage measured so the value of each technique is visible rather than asserted.",
+    role: "Solo build — kernels, measurement harness, tooling, documentation",
+    stack: ["CUDA C++", "cuBLAS", "CUB", "WMMA / Tensor Cores", "CMake", "Python", "GitHub Actions"],
+    problem:
+      "A GPU is almost never slow because it runs out of arithmetic. It is slow because the arithmetic units are waiting on memory, and the material that explains this tends either to stay abstract or to hand over a finished kernel with no account of how it got there. I wanted the account: the same operation implemented repeatedly, each version differing from the last by exactly one idea, so that the gap between two adjacent versions measures that idea instead of describing it.",
+    approach: [
+      "Rebuilt single-precision matrix multiply in nine stages — uncoalesced naive, then global-memory coalescing, shared-memory tiling, 1D and 2D register tiling with an outer-product inner loop, float4 vectorization over a transposed tile, warp-level tiling, and finally tensor cores through WMMA in TF32.",
+      "Wrote a fused attention kernel that never materializes the S×S score matrix, carrying a running maximum and denominator through the accumulator with the online-softmax correction — the trick that makes FlashAttention possible — plus a causal variant that skips whole key tiles above the diagonal before issuing a single dot product.",
+      "Covered the bandwidth-bound half of the problem as well: six reduction formulations from global atomics to vectorized warp shuffles, transpose kernels that isolate coalescing from shared-memory bank conflicts, online softmax, and RMSNorm with the residual fusion that production code always does.",
+      "Built the measurement harness first — CUDA events on the stream, untimed warm-up launches, trimmed-median statistics with p95 and a coefficient of variation on every row, and correctness validated against cuBLAS, CUB or a double-precision host reference before anything is timed.",
+      "Made the documentation a build artifact: the report, the charts and the README's own tables are generated from the results file, and CI regenerates them and fails if they disagree with what was measured.",
+    ],
+    results: [
+      { value: "114%", label: "of cuBLAS FP32 throughput at 4096³" },
+      { value: "48×", label: "naive to fastest, same problem" },
+      { value: "2.83×", label: "fused causal attention", against: "materialized, and 64 MiB of scratch removed" },
+      { value: "88%", label: "of theoretical bandwidth on reduction" },
+      { value: "0", label: "correctness failures across 79 measurements" },
+    ],
+    resultsNote:
+      "Measured on a thermally constrained 4 GB laptop GPU, so absolute throughput sits well below a datacentre card and the ratios are the portable result. The tensor-core kernel is the weakest number in the repository — roughly a fifth of the TF32 ceiling — and the README says so, along with the specific pipelining it lacks.",
+    outcome:
+      "The finding I did not expect was how much of the total came from a single index swap: making a warp read 128 contiguous bytes instead of 32 scattered ones was worth 5.6× on its own, more than any other stage contributed. The second was that occupancy moved the wrong way — the fastest kernels hold so many accumulators in registers that fewer warps fit on an SM, and they win anyway, because what the hardware needs is independent work in flight rather than resident threads.",
+    links: [
+      { label: "GitHub", href: "https://github.com/NavyashreeNS/warpsmith" },
+      { label: "Results dashboard", href: "https://navyashreens.github.io/warpsmith/" },
+    ],
+    cover: {
+      src: "",
+      alt: "warpsmith — SGEMM throughput across nine optimization stages",
+      spec: "1600×1000 · the stage bar chart from docs/charts/sgemm-progression.svg",
+    },
+    gallery: [
+      {
+        src: "",
+        alt: "Roofline plot of every kernel against the memory and compute ceilings",
+        caption:
+          "Arithmetic intensity decides which ceiling binds. Left of the ridge point, better arithmetic buys nothing.",
+        spec: "1600×1000",
+      },
+      {
+        src: "",
+        alt: "Throughput and register pressure side by side across stages",
+        caption:
+          "Throughput was bought with registers — occupancy falls across the progression and speed rises anyway.",
+        spec: "1600×1000",
+      },
+    ],
+  },
+  {
+    slug: "halcyon",
+    title: "Halcyon",
+    kicker: "Systems · Distributed",
+    year: "2026",
+    featured: true,
+    status: "Shipped — public, 159 tests, CI exercises a live fleet on every push",
+    summary:
+      "An inference control plane that treats batching, routing, admission and rollout as one scheduling problem — and holds 16× the goodput of fixed batching once the fleet is past saturation.",
+    role: "Solo build — scheduler, simulator, benchmarks, rollout controller",
+    stack: ["TypeScript", "Node.js", "Discrete-event simulation", "Peak-EWMA routing", "Kubernetes"],
+    problem:
+      "Inference service time is affine rather than linear in batch size — a fixed launch and weight-paging cost plus a marginal per-token cost — so serving one request at a time burns most of a GPU on overhead that was paid for and thrown away. Batching recovers the throughput and immediately introduces queueing delay, and a fixed batch size or timeout is a number that is correct at exactly one arrival rate. Meanwhile replicas are not interchangeable, a latency-aware balancer will happily send more traffic to the replica that is failing fastest, and a new model version still has to ship without betting the user base on it. These are usually four separate systems that fight each other.",
+    approach: [
+      "Made batch size emergent rather than configured: earliest-deadline-first admission against an online cost model, so requests that provably cannot meet their deadline are shed in microseconds instead of consuming capacity and missing anyway.",
+      "Scored replicas with peak-EWMA under power-of-two-choices, with outcome-based circuit breaking, so a replica that fails in two milliseconds stops looking attractive to the load balancer.",
+      "Replaced the static concurrency cap with a gradient-based limiter that infers queueing from latency, alongside per-tenant token buckets and priority-graded shedding.",
+      "Gated progressive rollout on evidence: sticky-hash traffic splitting with a controller that promotes or rolls back a canary by comparing it against a concurrent baseline rather than against a dashboard.",
+      "Benchmarked it in a fully seeded discrete-event simulation — same arrival trace, same device model, three schedulers — then verified the same behaviour against a real running fleet in CI.",
+    ],
+    results: [
+      { value: "16×", label: "goodput past saturation", against: "fixed batching at 260 req/s" },
+      { value: "83.1/s", label: "goodput past saturation", against: "5.2/s under fixed batching" },
+      { value: "1,020 ms", label: "p95 past saturation", against: "2,618 ms under fixed batching" },
+      { value: "41.0%", label: "urgent SLO met at saturation", against: "27.9% under fixed batching" },
+      { value: "159", label: "tests, plus a live fleet load test in CI" },
+    ],
+    resultsNote:
+      "Below saturation Halcyon and fixed batching are indistinguishable, and the repository reports that rather than hiding it — deadline awareness earns nothing when there is slack for everyone. It earns everything at the edge, which is where systems actually break.",
+    outcome:
+      "The result worth keeping came from the rollout controller catching something nobody had written a test for. A canary looked twice as fast as the baseline at 25% of traffic and was rolled back at 60%, because one canary replica was absorbing 60% of the load while two baseline replicas shared the rest. The canary was never slower — it was under-provisioned, and that is invisible until you ramp. A rollout validated at 1% and then promoted would have shipped it.",
+    links: [{ label: "GitHub", href: "https://github.com/NavyashreeNS/halcyon" }],
+    cover: {
+      src: "",
+      alt: "Halcyon — goodput against offered load for three scheduling strategies",
+      spec: "1600×1000 · the goodput-vs-load chart, or the architecture diagram",
+    },
+    gallery: [
+      {
+        src: "",
+        alt: "Halcyon control plane architecture",
+        caption:
+          "Batching, routing, admission and rollout as a single scheduling problem rather than four systems.",
+        spec: "1600×1000",
+      },
+      {
+        src: "",
+        alt: "Canary rollout decision trail under sustained load",
+        caption:
+          "The controller holding, advancing, then rolling back a canary that was under-provisioned rather than slow.",
+        spec: "1600×1000",
+      },
+    ],
+  },
+  {
     slug: "ecoecho",
     title: "EcoEcho",
     kicker: "Full-stack · Climate",
